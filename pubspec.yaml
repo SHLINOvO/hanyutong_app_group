@@ -1,0 +1,43 @@
+name: chinese_go_app
+description: 汉语通 - 面向外国人的中文学习 App
+# App 显示名称（在手机桌面上显示的名称）
+# 注意：修改 App 名称请同时修改 android/app/src/main/AndroidManifest.xml 中的 android:label
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # 状态管理
+  provider: ^6.1.2
+  # 本地持久化（对应 localStorage）
+  shared_preferences: ^2.3.2
+  # 路由
+  go_router: ^14.3.0
+  # 图标
+  cupertino_icons: ^1.0.8
+  # Windows 桌面窗口管理（控制窗口大小/标题等）
+  window_manager: ^0.3.9
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.14.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icon/
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
+  min_sdk_android: 21
+

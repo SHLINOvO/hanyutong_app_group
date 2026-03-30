@@ -1,0 +1,238 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+const _questions = [
+  {
+    'id': 1,
+    'options': ['选项 A', '选项 B', '选项 C', '选项 D'],
+    'correct': 1,
+  },
+  {
+    'id': 2,
+    'options': ['选项 A', '选项 B', '选项 C', '选项 D'],
+    'correct': 2,
+  },
+  {
+    'id': 3,
+    'options': ['选项 A', '选项 B', '选项 C', '选项 D'],
+    'correct': 0,
+  },
+];
+
+class ListeningPractice extends StatefulWidget {
+  const ListeningPractice({super.key});
+
+  @override
+  State<ListeningPractice> createState() => _ListeningPracticeState();
+}
+
+class _ListeningPracticeState extends State<ListeningPractice> {
+  int _current = 0;
+  int? _selected;
+  bool _isSubmitted = false;
+
+  Map<String, dynamic> get _question => _questions[_current];
+  double get _progress => (_current + 1) / _questions.length;
+
+  void _handleSubmit() {
+    if (_selected == null) return;
+    setState(() => _isSubmitted = true);
+    Future.delayed(const Duration(seconds: 2), () {
+      if (!mounted) return;
+      _handleNext();
+    });
+  }
+
+  void _handleNext() {
+    if (_current < _questions.length - 1) {
+      setState(() {
+        _current++;
+        _selected = null;
+        _isSubmitted = false;
+      });
+    } else {
+      context.pop();
+    }
+  }
+
+  Color _optionBgColor(int index) {
+    if (!_isSubmitted) {
+      return _selected == index ? const Color(0xFFDCEAFF) : Colors.white;
+    }
+    if (index == _question['correct']) return Colors.green;
+    if (index == _selected && index != _question['correct']) return Colors.red;
+    return Colors.white;
+  }
+
+  Color _optionBorderColor(int index) {
+    if (!_isSubmitted) {
+      return _selected == index ? const Color(0xFF4285F4) : const Color(0xFFE0E0E0);
+    }
+    if (index == _question['correct']) return Colors.green;
+    if (index == _selected && index != _question['correct']) return Colors.red;
+    return const Color(0xFFE0E0E0);
+  }
+
+  Color _optionTextColor(int index) {
+    if (_isSubmitted &&
+        (index == _question['correct'] ||
+            (index == _selected && index != _question['correct']))) {
+      return Colors.white;
+    }
+    return const Color(0xFF333333);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final options = (_question['options'] as List).cast<String>();
+
+    return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5),
+      body: Column(
+        children: [
+          // Header
+          Container(
+            color: Colors.white,
+            child: SafeArea(
+              bottom: false,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: const BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Color(0xFFE0E0E0)))),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => context.pop(),
+                      icon: const Icon(Icons.arrow_back, color: Color(0xFF333333)),
+                    ),
+                    const Text('听力练习',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          // Progress
+          Container(
+            color: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('第 ${_current + 1} 题 / 共 ${_questions.length} 题',
+                    style: const TextStyle(fontSize: 13, color: Color(0xFF666666))),
+                const SizedBox(height: 8),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: LinearProgressIndicator(
+                    value: _progress,
+                    backgroundColor: const Color(0xFFE0E0E0),
+                    color: const Color(0xFF4285F4),
+                    minHeight: 8,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Content
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                children: [
+                  // Audio Player Button
+                  Container(
+                    width: 88,
+                    height: 88,
+                    decoration: const BoxDecoration(
+                      color: Colors.deepOrange,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black26, blurRadius: 8, offset: Offset(0, 4))
+                      ],
+                    ),
+                    child: const Icon(Icons.volume_up, color: Colors.white, size: 44),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text('点击播放',
+                      style: TextStyle(fontSize: 13, color: Color(0xFF999999))),
+                  const SizedBox(height: 24),
+                  // Options
+                  ...options.asMap().entries.map((entry) {
+                    final i = entry.key;
+                    final opt = entry.value;
+                    return GestureDetector(
+                      onTap: _isSubmitted ? null : () => setState(() => _selected = i),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 150),
+                        margin: const EdgeInsets.only(bottom: 12),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: _optionBgColor(i),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: _optionBorderColor(i), width: 2),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 32,
+                              height: 32,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[100],
+                                  borderRadius: BorderRadius.circular(8)),
+                              alignment: Alignment.center,
+                              child: Text(
+                                String.fromCharCode(65 + i),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: _optionTextColor(i)),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Text(opt,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: _optionTextColor(i))),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+                  const SizedBox(height: 16),
+                  // Buttons
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: _isSubmitted ? null : _handleNext,
+                        child: const Text('跳过',
+                            style: TextStyle(color: Color(0xFF999999))),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed:
+                              _selected != null && !_isSubmitted ? _handleSubmit : null,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF4285F4),
+                            disabledBackgroundColor: const Color(0xFFCCCCCC),
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                          ),
+                          child: const Text('提交',
+                              style: TextStyle(
+                                  color: Colors.white, fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
