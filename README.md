@@ -54,6 +54,12 @@ chinese_go_app_flutter/
 
 ---
 
+## 📷 界面展示
+
+<img src="_figure/1.png" width="250" /> <img src="_figure/2.png" width="250" /> <img src="_figure/3.png" width="250" />
+
+---
+
 ## 🔧 依赖说明
 
 | 包 | 用途 |
