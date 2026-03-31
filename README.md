@@ -1,277 +1,317 @@
-# 汉语通（Chinese Go）
+# Chinese Go App — Flutter
 
-> 面向外国人的中文学习 App，帮助学习者通过语音交互掌握中文词汇、成语与古诗词。
-
----
-
-## 📖 项目介绍
-
-**汉语通**是一款专为外国人设计的中文学习应用，核心特色：
-
-- 🎧 **听词解义**：用户听到中文词/成语/古诗词，用自己的母语语音说出含义，AI 进行三维评分（字面义 / 引申义 / 现实应用）
-- 🗣️ **发音评测**：朗读中文内容，AI 评测声调与发音准确度
-- 📚 **分级学习体系**：
-  - 入门（HSK 1–2）：基础字词、常用句型
-  - 初级（HSK 3–4）：进阶词汇、语法
-  - 中级（HSK 5–6）：复杂句式、惯用语
-  - 高级：成语 / 谚语 / 歇后语 / 古诗词
-- 🌍 **多语言界面**：支持英语、日语、韩语、西班牙语等 8 种母语
-
-> 📌 **当前状态**：UI 原型阶段。录音与音频播放为占位实现（模拟 2 秒录音 + 随机评分），实际语音功能待接入 Whisper / flutter_tts 等 API。
+> 面向外国人的中文学习语音评测 App，帮助学习者通过听、说、测三个维度深度掌握中文词汇与发音。
 
 ---
 
-## 🗂️ 项目结构
+## 目录
 
+- [项目简介](#项目简介)
+- [核心功能](#核心功能)
+- [技术架构](#技术架构)
+- [多语言支持](#多语言支持)
+- [项目结构](#项目结构)
+- [快速开始](#快速开始)
+- [页面说明](#页面说明)
+- [UI 组件](#ui-组件)
+- [开发进度](#开发进度)
+
+---
+
+## 项目简介
+
+**Chinese Go App** 是一款专为外国人设计的中文学习 App。用户可以：
+
+1. **听 → 解释**：听中文词汇/成语/古诗词，用母语语音解释含义，AI 进行三维评分
+2. **读 → 评测**：朗读中文，AI 评测发音与声调准确度
+
+分级体系覆盖从零基础到高阶：
+
+| 级别 | 内容 |
+|------|------|
+| 入门 | HSK 1–2，基础字词 |
+| 初级 | HSK 3–4，常用词句 |
+| 中级 | HSK 5–6，进阶表达 |
+| 高级 | 成语、谚语、歇后语、古诗词 |
+
+---
+
+## 核心功能
+
+### 语义理解评分（听力练习）
+- 用户听中文内容后，用母语语音描述其含义
+- AI 三维评分系统：
+  - **字面义**：对字面意思的理解
+  - **引申义**：对隐含意思的理解
+  - **现实意义**：在实际语境中的运用
+- 三层评分机制：关键词匹配 → 语义相似度（sentence-transformers）→ LLM 深度判断（DeepSeek）
+
+### 发音声调评测（朗读练习）
+- 用户跟读中文词汇或句子
+- AI 评测声调、发音准确度
+- 实时反馈与改进建议
+
+### 词汇学习系统
+- 卡片式学习，支持收藏与复习
+- 学习进度跟踪与统计
+- 按级别和类别分类浏览
+
+---
+
+## 技术架构
+
+### 前端（Flutter）
 ```
-chinese_go_app_flutter/
-├── pubspec.yaml               # 依赖配置
-├── assets/
-│   └── icon/
-│       └── app_icon.png       # App 图标原图（1024×1024，蓝色渐变+「汉」字+音波）
-└── lib/
-    ├── main.dart              # 入口（含 Windows 窗口管理）
-    ├── app_state.dart         # 全局状态（Provider + SharedPreferences）
-    ├── router.dart            # 路由（go_router）
-    ├── screens/
-    │   ├── splash_screen.dart         启动页
-    │   ├── language_selection.dart    选择母语（引导步骤 1）
-    │   ├── level_test.dart            水平测试（引导步骤 2）
-    │   ├── goal_setting.dart          学习目标（引导步骤 3）
-    │   ├── main_layout.dart           底部导航框架
-    │   ├── home_tab.dart              首页
-    │   ├── learn_tab.dart             学习页
-    │   ├── profile_tab.dart           我的页
-    │   ├── practice_page.dart         字词 / 句子练习
-    │   ├── advanced_practice.dart     高阶练习（成语 / 诗词等）
-    │   ├── listening_practice.dart    听力练习
-    │   ├── favorites_page.dart        我的收藏
-    │   ├── review_page.dart           复习
-    │   └── empty_page.dart            占位页（功能开发中）
-    └── widgets/
-        └── step_indicator.dart        步骤指示器（小圆点）
+框架：Flutter（支持 Android、iOS、Windows Desktop）
+状态管理：Provider + SharedPreferences
+路由：go_router（自定义淡入淡出动画 200ms）
+国际化：自定义 AppLocalizations（5 种语言）
+```
+
+### 后端（计划）
+```
+语音识别：OpenAI Whisper large-v3（后端部署，移动端上传音频文件）
+语义评分：sentence-transformers（语义相似度）+ DeepSeek API（深度判断）
+备选方案：科大讯飞星火（有免费额度）
+```
+
+### 主要依赖
+```yaml
+flutter_riverpod / provider     # 状态管理
+go_router                       # 路由
+shared_preferences              # 本地存储
+window_manager: ^0.3.9          # Windows 窗口控制（手机比例 390×844）
 ```
 
 ---
 
-## 📷 界面展示
+## 多语言支持
 
-<img src="_figure/1.png" width="250" /> <img src="_figure/2.png" width="250" /> <img src="_figure/3.png" width="250" />
+App 支持 **5 种界面语言**，涵盖 LTR 和 RTL 两种布局方向：
 
----
+| 语言 | 代码 | 布局方向 | 原生名称 |
+|------|------|----------|----------|
+| 英语 | `en` | LTR（从左到右） | English |
+| 俄语 | `ru` | LTR | Русский |
+| 土耳其语 | `tr` | LTR | Türkçe |
+| 波斯语 | `fa` | **RTL**（从右到左） | فارسی |
+| 阿拉伯语 | `ar` | **RTL**（从右到左） | العربية |
 
-## 🔧 依赖说明
+### 实现方式
 
-| 包 | 用途 |
-|---|---|
-| `provider` | 状态管理（对应 React Context） |
-| `shared_preferences` | 本地持久化（对应 localStorage） |
-| `go_router` | 页面路由（对应 react-router） |
-| `window_manager` | Windows 桌面窗口大小 / 标题控制 |
-| `flutter_launcher_icons` | 自动生成多分辨率 App 图标（mdpi / hdpi / xhdpi / xxhdpi / xxxhdpi） |
+**本地化类**（`lib/l10n/app_localizations.dart`）
+- 包含 100+ 个本地化键值
+- 涵盖所有界面文本：导航栏、按钮、提示、标签、对话框等
+- 支持在运行时动态切换语言（无需重启 App）
 
----
+**语言配置**（`lib/config/app_languages.dart`）
+- `AppLanguage` 数据类，包含 locale、原生名称、英文名、RTL 标识
+- `supportedLanguages` 全局列表
+- `getLanguage(String code)` 辅助函数
 
-## 🚀 环境准备
+**RTL 布局支持**（`lib/utils/rtl_utils.dart` / `lib/utils/rtl_layout.dart`）
+- 自动检测当前语言是否为 RTL
+- 提供 RTL 包装器组件（`RtlAwareWidget`）
+- 自动调整：文字对齐、图标镜像、边距方向
 
-### 第一步：安装 Flutter SDK
+### 本地化文本覆盖范围
 
-1. 访问 [https://docs.flutter.dev/get-started/install/windows](https://docs.flutter.dev/get-started/install/windows)
-2. 下载并解压到 **`C:\flutter`**（⚠️ 不要放在 `C:\Program Files\`，会因权限报错）
-3. 将 `C:\flutter\bin` 加入系统环境变量 `PATH`：
-   - 按 `Win + R` → 输入 `sysdm.cpl` → 环境变量 → 系统变量 → 双击 `Path` → 新建 → 输入 `C:\flutter\bin` → 三次确定
-4. 打开命令提示符，验证：
-   ```
-   flutter --version
-   ```
-   看到版本号即成功。
-
-### 第二步：运行环境诊断
-
-```
-flutter doctor
-```
-
-如果出现 `Android licenses not accepted`，运行：
-
-```
-flutter doctor --android-licenses
-```
-
-全部输入 `y` 回车即可。
-
-### 第三步：安装 Android Studio Flutter 插件
-
-1. 打开 Android Studio → `Ctrl + Alt + S` → **Plugins** → **Marketplace**
-2. 搜索 `Flutter` → Install（会自动安装 Dart 插件）
-3. 重启 Android Studio
+| 界面 | 状态 |
+|------|------|
+| 语言选择页面 | ✅ 完整本地化 |
+| 水平测试页面 | ✅ 完整本地化 |
+| 目标设置页面 | ✅ 完整本地化 |
+| 首页（Home Tab） | ✅ 完整本地化 |
+| 学习页（Learn Tab） | ✅ 完整本地化 |
+| 我的页面（Profile Tab） | ✅ 完整本地化 |
+| 字词/句子练习 | ✅ 完整本地化 |
+| 高阶练习 | ✅ 完整本地化 |
+| 听力练习 | ✅ 完整本地化 |
+| 收藏页面 | ✅ 完整本地化 |
+| 复习页面 | ✅ 完整本地化 |
+| 底部导航栏 | ✅ 完整本地化 |
 
 ---
 
-## ▶️ 运行项目
-
-### 克隆 / 打开项目
+## 项目结构
 
 ```
-git clone https://gitee.com/你的用户名/chinese-go-app.git
-cd chinese-go-app
+lib/
+├── main.dart                    # 应用入口，配置国际化框架
+├── router.dart                  # go_router 路由配置（含淡入淡出动画）
+│
+├── config/
+│   └── app_languages.dart       # 语言配置（AppLanguage 类，supportedLanguages 列表）
+│
+├── l10n/
+│   └── app_localizations.dart   # 本地化类（5种语言，100+ 键值）
+│
+├── utils/
+│   ├── rtl_utils.dart           # RTL 语言检测工具
+│   └── rtl_layout.dart          # RTL 布局包装组件
+│
+├── providers/
+│   └── app_provider.dart        # 全局状态（语言、学习进度等）
+│
+├── screens/
+│   ├── splash_screen.dart       # 启动页
+│   ├── language_selection.dart  # 语言选择（首次启动）
+│   ├── level_test.dart          # 水平测试
+│   ├── goal_setting.dart        # 学习目标设置
+│   ├── main_layout.dart         # 底部导航栏布局
+│   ├── home_tab.dart            # 首页
+│   ├── learn_tab.dart           # 学习页（级别/类别选择）
+│   ├── profile_tab.dart         # 我的页面
+│   ├── practice_page.dart       # 字词/句子练习
+│   ├── advanced_practice.dart   # 高阶练习（成语/古诗词）
+│   ├── listening_practice.dart  # 听力练习
+│   ├── favorites_page.dart      # 收藏
+│   ├── review_page.dart         # 复习
+│   └── empty_page.dart          # 占位页面
+│
+└── widgets/
+    └── sound_wave_button.dart   # 声波喇叭按钮组件
 ```
 
-或在 Android Studio 中：**File → Open** → 选择项目文件夹。
+---
 
-### 安装依赖
+## 快速开始
 
-```
+### 环境要求
+
+- Flutter SDK 3.x（推荐最新稳定版）
+- Dart 3.x
+- Android Studio 或 VS Code（安装 Flutter 插件）
+- Windows 系统（当前主要在 Windows Desktop 模式开发/测试）
+
+### 安装步骤
+
+```bash
+# 1. 克隆项目
+git clone https://gitee.com/linlinsh/chinese_go_app_v2.git
+cd chinese_go_app_v2
+
+# 2. 安装依赖
 flutter pub get
-```
 
-### 初始化平台支持（第一次运行必须做）
+# 3. 生成 Windows 桌面支持（首次需要）
+flutter create --platforms=windows .
 
-根据你要运行的平台，在 Terminal 中执行对应命令（**注意末尾的空格和点 `.`**）：
-
-| 目标平台 | 命令 |
-|---|---|
-| Android 模拟器 / 真机 | `flutter create --platforms=android .` |
-| Windows 桌面 | `flutter create --platforms=windows .` |
-| iOS（需要 Mac + Xcode） | `flutter create --platforms=ios .` |
-| 同时支持多个平台 | `flutter create --platforms=android,windows,ios .` |
-
-> 这条命令会生成对应的原生目录（`android/` 或 `windows/`），不会覆盖已有代码，只需执行一次。
-
-执行完后再运行：
-
-```
-flutter pub get
-```
-
-### 运行
-
-**Android 模拟器**：
-1. `Tools → Device Manager → + → Pixel 6 → API 34` 创建并启动模拟器
-2. 顶部设备下拉框选 Pixel 6，点击 **▶ Run**
-
-**Android 真机**：
-1. 手机开启「开发者选项」：设置 → 关于手机 → 连续点击版本号 7 次
-2. 打开「USB 调试」
-3. 数据线连接电脑，手机弹窗点「允许」
-4. 顶部下拉框选择你的手机，点击 **▶ Run**
-
-**Windows 桌面**（无需模拟器，直接在电脑运行）：
-```
+# 4. 运行
 flutter run -d windows
 ```
-或顶部设备下拉框选 **Windows**，点击 **▶ Run**。窗口会自动以手机比例（390×844）居中打开。
 
-> ⚠️ Windows 桌面运行需要安装 **Visual Studio 2022**，并勾选「使用 C++ 的桌面开发」工作负载。
+> **详细指南** 请参阅 [`运行指南.md`](./运行指南.md)，包含 Flutter SDK 安装、PATH 配置、flutter doctor 问题排查、模拟器创建、常见报错解决等完整步骤。
 
-**iOS 真机 / 模拟器**（需要 Mac + Xcode）：
-```
-flutter run -d ios
-```
-> ⚠️ iOS 编译必须在 **macOS** 上进行，Windows 无法编译 iOS。项目代码已包含 `ios/` 目录，在 Mac 上开启 Xcode 后即可直接运行。
+### Windows 窗口说明
 
-**打包为 APK（通过 QQ / 微信发给手机安装）**：
-```
-flutter build apk --debug
-```
-APK 路径：`build\app\outputs\flutter-apk\app-debug.apk`
+App 在 Windows 上以手机比例运行（390×844），由 `window_manager` 控制窗口大小，模拟真实手机体验。
 
 ---
 
-## 🔥 开发调试技巧
+## 页面说明
 
-| 操作 | 快捷键 |
-|---|---|
-| 热重载（修改代码秒刷新） | `Ctrl + \` 或点击闪电 ⚡ |
-| 热重启 | `Ctrl + Shift + \` |
-| 停止运行 | `Ctrl + F2` |
-| 查看日志 | 底部 **Logcat** 标签 |
+### 首次启动流程
+```
+SplashScreen → 语言选择 → 水平测试 → 学习目标设置 → 主界面
+```
+
+### 主界面（底部导航栏）
+| Tab | 功能 |
+|-----|------|
+| 首页 | 每日推荐、快速进入练习 |
+| 学习 | 按级别/类别浏览词汇，进入练习模式 |
+| 我的 | 学习统计、成就、设置 |
+
+### 练习模式
+
+**字词/句子练习**（`practice_page.dart`）
+- Step 1：朗读中文词卡，听 TTS 发音
+- Step 2：录音解释含义，提交评分
+
+**高阶练习**（`advanced_practice.dart`）
+- 适用于成语、古诗词等高阶内容
+- 同样两步骤，显示更多文化背景信息
+
+**听力练习**（`listening_practice.dart`）
+- 点击大喇叭播放中文音频
+- 从多个选项中选出正确含义
+- 支持单选/多选题型
 
 ---
 
-## 🎨 App 图标
+## UI 组件
 
-App 桌面图标为蓝色渐变背景 + 白色「汉」字 + 音波图案，已为 Android 和 iOS 所有屏幕密度自动生成。
+### SoundWaveButton（声波喇叭按钮）
 
-**如需更换图标**：
+通用的带动画喇叭按钮，点击后触发声波扩散动画，模拟正在播放音频的效果。
 
-1. 准备一张 **1024×1024 像素**的 PNG 图片，替换 `assets/icon/app_icon.png`
-2. 在项目根目录执行：
-   ```
-   flutter pub run flutter_launcher_icons
-   ```
-3. 重新编译运行即可，所有分辨率会自动更新。
+```dart
+// 基础用法（默认蓝色，36px）
+SoundWaveButton(
+  onTap: () { /* 播放音频 */ },
+)
+
+// 自定义颜色和尺寸（听力练习大号橙色版）
+SoundWaveButton(
+  size: 88,
+  color: Colors.deepOrange,  // 一键设置主色
+  iconSize: 44,
+  onTap: () { /* 播放音频 */ },
+)
+```
+
+**参数说明**
+
+| 参数 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `size` | `double` | `36` | 按钮直径（px） |
+| `iconSize` | `double?` | `size * 0.5` | 图标大小 |
+| `color` | `Color?` | `Color(0xFF4285F4)` | 一键主色（图标 + 声波） |
+| `iconColor` | `Color?` | 同 `color` | 图标颜色（优先于 color） |
+| `bgColor` | `Color` | `Colors.white` | 未播放时背景色 |
+| `waveColor` | `Color?` | 同 `color` | 声波颜色（优先于 color） |
+| `onTap` | `VoidCallback?` | `null` | 点击回调 |
+
+**动画效果**
+- 播放中：按钮变主色，图标变白，两圈同心声波向外扩散渐隐
+- 点击时：图标轻微弹起缩放效果
+- 2 秒后自动停止；播放中再次点击可立即停止
 
 ---
 
-## 🛠️ 常见报错
+## 开发进度
 
-| 报错 | 解决方法 |
-|---|---|
-| `flutter: command not found` | 检查 `C:\flutter\bin` 是否加入系统 Path，重启命令行 |
-| `Android licenses not accepted` | 运行 `flutter doctor --android-licenses`，全部输入 `y` |
-| `pub get` 网络超时 | 设置国内镜像：`set PUB_HOSTED_URL=https://pub.flutter-io.cn` 再重试 |
-| `No Windows desktop project configured` | 运行 `flutter create --platforms=windows .` |
-| `AndroidManifest.xml could not be found` | 运行 `flutter create --platforms=android .` |
-| `Gradle build failed` | 网络问题，保持网络畅通耐心等待；或重试 |
-| `minSdkVersion` 相关错误 | 打开 `android/app/build.gradle`，将 `minSdkVersion` 改为 `21` |
+### 已完成 ✅
+- [x] 完整 Flutter 项目骨架（18 个页面）
+- [x] 所有页面 UI 实现（从 Figma/React 转换）
+- [x] go_router 路由配置（含页面切换动画）
+- [x] Provider 状态管理
+- [x] Windows Desktop 运行支持
+- [x] 5 种界面语言（英/俄/土/波斯/阿拉伯）
+- [x] RTL 布局完整支持（波斯语/阿拉伯语）
+- [x] 所有界面文本完整本地化（100+ 键值）
+- [x] SoundWaveButton 声波动画组件
+- [x] 喇叭按钮声波动画（字词练习/高阶练习/听力练习）
+- [x] 删除国旗图标，改用语言图标
+- [x] 步骤栏两行统一布局
+- [x] Git 配置（.gitattributes，LF 行尾符）
 
----
+### 进行中 🔄
+- [ ] 后端接口对接（语音识别、评分 API）
+- [ ] TTS（flutter_tts）接入
+- [ ] 录音功能（record 包）实现
+- [ ] 真实词汇数据库接入
 
-## 🤝 贡献指南
-
-欢迎提交 PR 或 Issue！在贡献代码前，请阅读以下规范：
-
-### 分支命名规范
-
-```
-feature/功能描述      # 新功能，如 feature/whisper-integration
-fix/问题描述          # Bug 修复，如 fix/splash-screen-crash
-refactor/重构描述     # 代码重构
-docs/文档更新         # 仅修改文档
-```
-
-### 提交信息规范（Commit Message）
-
-使用中文 + 类型前缀：
-
-```
-feat: 新增 Whisper 语音识别接入
-fix: 修复首页统计数字不更新的问题
-refactor: 重构 AppState 状态管理逻辑
-docs: 更新 README 安装步骤
-style: 统一代码缩进格式
-```
-
-### 代码规范
-
-- 所有新文件使用 **Dart 规范命名**（小写 + 下划线，如 `my_widget.dart`）
-- 类名使用大驼峰（`PracticeCard`）
-- 私有变量以 `_` 开头（`_isLoading`）
-- 避免在 Widget `build()` 方法中写业务逻辑，提取到 `AppState` 或单独的 Service 类
-- 提交前运行 `flutter analyze` 确保无 lint 错误
-
-### 提交流程
-
-1. Fork 本仓库
-2. 创建你的功能分支：`git checkout -b feature/你的功能`
-3. 提交改动：`git commit -m "feat: 描述你的改动"`
-4. 推送到远程：`git push origin feature/你的功能`
-5. 在 Gitee 上发起 **Pull Request**，描述你的改动内容
-
-### 优先贡献方向
-
-目前项目最需要以下方向的贡献：
-
-- [ ] **语音录音**：接入 `record` 包，实现真实录音并上传
-- [ ] **TTS 播放**：接入 `flutter_tts`，实现中文朗读
-- [ ] **语音评分后端**：接入 Whisper large-v3 或科大讯飞 API
-- [ ] **词汇数据库**：使用 `sqflite` 本地存储 HSK 词汇及成语数据
-- [ ] **多语言 i18n**：接入 `flutter_localizations` + `intl` 包
-- [ ] **单元测试**：为 `AppState` 和路由逻辑补充测试用例
+### 计划中 📋
+- [ ] Android / iOS 适配测试
+- [ ] 用户账号系统
+- [ ] 学习数据云同步
+- [ ] 网页版（Web 平台）
 
 ---
 
-## 📄 License
+## 仓库信息
 
-MIT License — 欢迎自由使用和修改，保留原作者信息即可。
+- **Gitee**：https://gitee.com/linlinsh/chinese_go_app_v2
+- **分支**：master
