@@ -4,11 +4,6 @@ import 'package:provider/provider.dart';
 import '../app_state.dart';
 import '../l10n/app_localizations.dart';
 
-const _langFlags = {
-  'en': '🇺🇸', 'es': '🇪🇸', 'fr': '🇫🇷', 'de': '🇩🇪',
-  'ja': '🇯🇵', 'ko': '🇰🇷',
-};
-
 class ProfileTab extends StatelessWidget {
   const ProfileTab({super.key});
 
@@ -20,7 +15,7 @@ class ProfileTab extends StatelessWidget {
     final progress = [
       {'label': '📝 ${loc.wordsLabel}', 'value': 45, 'color': const Color(0xFF4285F4)},
       {'label': '📄 ${loc.sentencesLabel}', 'value': 30, 'color': Colors.green},
-      {'label': '📐 Grammar', 'value': 0, 'color': Colors.grey, 'locked': true},
+      {'label': '📐 ${loc.grammarLabel}', 'value': 0, 'color': Colors.grey, 'locked': true},
       {'label': '🎧 ${loc.listening}', 'value': 20, 'color': Colors.purple},
       {'label': '⭐ ${loc.advancedLabel}', 'value': 10, 'color': Colors.red},
     ];
@@ -48,16 +43,11 @@ class ProfileTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(loc.learnerName,
+                      Text(state.username,
                           style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: Color(0xFF333333))),
-                      const SizedBox(height: 4),
-                      Text(
-                        _langFlags[state.language] ?? '🇺🇸',
-                        style: const TextStyle(fontSize: 22),
-                      ),
                     ],
                   ),
                 ),
@@ -67,7 +57,7 @@ class ProfileTab extends StatelessWidget {
                       color: Color(0xFF666666)),
                 ),
                 IconButton(
-                  onPressed: () => context.push('/empty'),
+                  onPressed: () => context.push('/settings'),
                   icon: const Icon(Icons.settings_outlined,
                       color: Color(0xFF666666)),
                 ),

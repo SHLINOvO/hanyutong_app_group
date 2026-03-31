@@ -23,7 +23,7 @@ class AppLocalizations {
       'pleaseSelect': 'Please select your native language',
       'confirm': 'Confirm',
       'chooseNativeLanguage': 'Choose Native Language',
-      'dailyGoalMinutes': 'Daily Goal (minutes)',
+      'dailyGoalMinutes': 'Daily Goal (per day)',
       'minutes': 'minutes',
       // 首页
       'home': 'Home',
@@ -48,6 +48,7 @@ class AppLocalizations {
       'wordsLabel': 'Words',
       'sentencesLabel': 'Sentences',
       'advancedLabel': 'Advanced',
+      'grammarLabel': 'Grammar',
       'unitDay': 'day',
       'unitDays': 'days',
       'unitHour': 'hour',
@@ -89,6 +90,9 @@ class AppLocalizations {
       'totalDays': 'Total Days',
       'totalHours': 'Total Hours',
       'settings': 'Settings',
+      'editUsername': 'Edit Username',
+      'enterNewUsername': 'Enter new username',
+      'save': 'Save',
       'language': 'Language',
       'dailyGoal': 'Daily Goal',
       'notifications': 'Notifications',
@@ -151,9 +155,18 @@ class AppLocalizations {
       'dailyConsistency': 'Consistency brings visible progress',
       'startLearning': 'Start Learning',
       'goal5min': '5 min/day',
+      'goal5desc': 'Easy start, learn anytime',
       'goal15min': '15 min/day',
+      'goal15desc': 'Steady progress, daily check-in',
       'goal30min': '30 min/day',
+      'goal30desc': 'Efficient learning, fast progress',
       'goal60min': '60 min/day',
+      'goal60desc': 'Deep immersion, comprehensive breakthrough',
+      // level descriptions
+      'beginnerDesc': 'Just started, know a few Chinese characters',
+      'elementaryDesc': 'Can have simple daily conversations',
+      'intermediateDesc': 'Master common words, can read short texts',
+      'advancedDesc': 'Familiar with idioms and poetry, challenge deep Chinese',
       // profile_tab.dart
       'learnerName': 'Learner',
       'myAchievements': 'My Achievements',
@@ -171,6 +184,12 @@ class AppLocalizations {
       // empty_page.dart
       'comingSoon': 'Coming Soon',
       'featureInDevelopment': 'Feature is under development...',
+      // settings_page.dart
+      'resetOnboarding': 'Reset Onboarding',
+      'resetOnboardingDesc': 'Show language selection, level test and goal setting again',
+      'confirmReset': 'Reset?',
+      'resetSuccess': 'Reset successful. Please restart the app.',
+      'reset': 'Reset',
     },
     'ru': {
       'appTitle': 'Chinese Go',
@@ -178,7 +197,7 @@ class AppLocalizations {
       'pleaseSelect': 'Пожалуйста, выберите ваш родной язык',
       'confirm': 'Подтвердить',
       'chooseNativeLanguage': 'Выберите родной язык',
-      'dailyGoalMinutes': 'Ежедневная цель (минуты)',
+      'dailyGoalMinutes': 'Ежедневная цель (в день)',
       'minutes': 'минут',
       'home': 'Главная',
       'learning': 'Обучение',
@@ -202,6 +221,7 @@ class AppLocalizations {
       'wordsLabel': 'Слова',
       'sentencesLabel': 'Предложения',
       'advancedLabel': 'Продвинутые',
+      'grammarLabel': 'Грамматика',
       'unitDay': 'день',
       'unitDays': 'дней',
       'unitHour': 'час',
@@ -222,6 +242,9 @@ class AppLocalizations {
       'totalDays': 'Всего дней',
       'totalHours': 'Всего часов',
       'settings': 'Настройки',
+      'editUsername': 'Изменить имя пользователя',
+      'enterNewUsername': 'Введите новое имя пользователя',
+      'save': 'Сохранить',
       'language': 'Язык',
       'dailyGoal': 'Ежедневная цель',
       'notifications': 'Уведержения',
@@ -303,9 +326,18 @@ class AppLocalizations {
       'dailyConsistency': 'Последовательность приносит заметный прогресс',
       'startLearning': 'Начать обучение',
       'goal5min': '5 минут/день',
+      'goal5desc': 'Лёгкий старт, учитесь когда угодно',
       'goal15min': '15 минут/день',
+      'goal15desc': 'Стабильный прогресс, ежедневная практика',
       'goal30min': '30 минут/день',
+      'goal30desc': 'Эффективное обучение, быстрый прогресс',
       'goal60min': '60 минут/день',
+      'goal60desc': 'Глубокое погружение, всесторонний прорыв',
+      // level descriptions
+      'beginnerDesc': 'Только начинаю, знаю несколько китайских иероглифов',
+      'elementaryDesc': 'Могу вести простые ежедневные диалоги',
+      'intermediateDesc': 'Освоил часто встречающиеся слова, могу читать короткие тексты',
+      'advancedDesc': 'Знаком с идиомами и стихами, углубляюсь в китайский язык',
       // profile_tab.dart
       'learnerName': 'Обучающийся',
       'myAchievements': 'Мои достижения',
@@ -323,6 +355,12 @@ class AppLocalizations {
       // empty_page.dart
       'comingSoon': 'Скоро будет',
       'featureInDevelopment': 'Функция находится в разработке...',
+      // settings_page.dart
+      'resetOnboarding': 'Сбросить онбординг',
+      'resetOnboardingDesc': 'Снова показать выбор языка, тест уровня и установку цели',
+      'confirmReset': 'Сбросить?',
+      'resetSuccess': 'Сброшено. Пожалуйста, перезапустите приложение.',
+      'reset': 'Сбросить',
     },
     'fa': {
       'appTitle': 'چینی گو',
@@ -330,7 +368,7 @@ class AppLocalizations {
       'pleaseSelect': 'لطفاً زبان مادری خود را انتخاب کنید',
       'confirm': 'تأیید',
       'chooseNativeLanguage': 'انتخاب زبان مادری',
-      'dailyGoalMinutes': 'هدف روزانه (دقیقه)',
+      'dailyGoalMinutes': 'هدف روزانه (در روز)',
       'minutes': 'دقیقه',
       'home': 'خانه',
       'learning': 'یادگیری',
@@ -354,6 +392,7 @@ class AppLocalizations {
       'wordsLabel': 'کلمات',
       'sentencesLabel': 'جمله‌ها',
       'advancedLabel': 'پیشرفته',
+      'grammarLabel': 'دستور زبان',
       'unitDay': 'روز',
       'unitDays': 'روز',
       'unitHour': 'ساعت',
@@ -374,6 +413,9 @@ class AppLocalizations {
       'totalDays': 'کل روزها',
       'totalHours': 'کل ساعت‌ها',
       'settings': 'تنظیمات',
+      'editUsername': 'ویرایش نام کاربری',
+      'enterNewUsername': 'نام کاربری جدید را وارد کنید',
+      'save': 'ذخیره',
       'language': 'زبان',
       'dailyGoal': 'هدف روزانه',
       'notifications': 'اعلان‌ها',
@@ -450,9 +492,18 @@ class AppLocalizations {
       'dailyConsistency': 'ثبات روزانه پیشرفت قابل مشاهده به همراه دارد',
       'startLearning': 'شروع یادگیری',
       'goal5min': '۵ دقیقه/روز',
+      'goal5desc': 'شروع آسان، هر زمان و هر مکان',
       'goal15min': '۱۵ دقیقه/روز',
+      'goal15desc': 'پیشرفت پایدار، ثبت روزانه',
       'goal30min': '۳۰ دقیقه/روز',
+      'goal30desc': 'یادگیری کارآمد، پیشرفت سریع',
       'goal60min': '۶۰ دقیقه/روز',
+      'goal60desc': 'غوطه‌وری عمیق، پیشرفت جامع',
+      // level descriptions
+      'beginnerDesc': 'تازه شروع کردم، چند کاراکتر چینی می‌شناسم',
+      'elementaryDesc': 'می‌توانم گفتگوهای روزانه ساده انجام دهم',
+      'intermediateDesc': 'کلمات رایج را تسلط یافته‌ام، می‌توانم متن‌های کوتاه بخوانم',
+      'advancedDesc': 'با اصطلاحات و اشعار آشنام، چینی عمیق را به چالش می‌کشم',
       // profile_tab.dart
       'learnerName': 'یادگیرنده',
       'myAchievements': 'دستاوردهای من',
@@ -468,6 +519,12 @@ class AppLocalizations {
       // empty_page.dart
       'comingSoon': 'به زودی',
       'featureInDevelopment': 'ویژگی در حال توسعه است...',
+      // settings_page.dart
+      'resetOnboarding': 'بازنشانی راهنما',
+      'resetOnboardingDesc': 'نمایش مجدد انتخاب زبان، تست سطح و تنظیم هدف',
+      'confirmReset': 'بازنشانی؟',
+      'resetSuccess': 'بازنشانی شد. لطفاً برنامه را مجدداً اجرا کنید.',
+      'reset': 'بازنشانی',
     },
     'ar': {
       'appTitle': 'تشين جو',
@@ -475,7 +532,7 @@ class AppLocalizations {
       'pleaseSelect': 'يرجى اختيار لغتك الأم',
       'confirm': 'تأكيد',
       'chooseNativeLanguage': 'اختر اللغة الأم',
-      'dailyGoalMinutes': 'الهدف اليومي (دقائق)',
+      'dailyGoalMinutes': 'الهدف اليومي (في اليوم)',
       'minutes': 'دقيقة',
       'home': 'الرئيسية',
       'learning': 'التعلم',
@@ -499,6 +556,7 @@ class AppLocalizations {
       'wordsLabel': 'الكلمات',
       'sentencesLabel': 'الجمل',
       'advancedLabel': 'متقدم',
+      'grammarLabel': 'القواعد',
       'unitDay': 'يوم',
       'unitDays': 'أيام',
       'unitHour': 'ساعة',
@@ -519,6 +577,9 @@ class AppLocalizations {
       'totalDays': 'إجمالي الأيام',
       'totalHours': 'إجمالي الساعات',
       'settings': 'الإعدادات',
+      'editUsername': 'تعديل اسم المستخدم',
+      'enterNewUsername': 'أدخل اسم المستخدم الجديد',
+      'save': 'حفظ',
       'language': 'اللغة',
       'dailyGoal': 'الهدف اليومي',
       'notifications': 'الإشعارات',
@@ -595,9 +656,18 @@ class AppLocalizations {
       'dailyConsistency': 'الانتظام اليومي يجلب تقدمًا ملحوظًا',
       'startLearning': 'ابدأ التعلم',
       'goal5min': '5 دقيقة/يوم',
+      'goal5desc': 'بداية سهلة، تعلم في أي وقت',
       'goal15min': '15 دقيقة/يوم',
+      'goal15desc': 'تقدم ثابت، تسجيل يومي',
       'goal30min': '30 دقيقة/يوم',
+      'goal30desc': 'تعلم فعال، تقدم سريع',
       'goal60min': '60 دقيقة/يوم',
+      'goal60desc': 'انغماس عميق، تقدم شامل',
+      // level descriptions
+      'beginnerDesc': 'بدأت للتو، أعرف بعض الأحرف الصينية',
+      'elementaryDesc': 'يمكنني إجراء محادثات يومية بسيطة',
+      'intermediateDesc': 'أحسنت الكلمات الشائعة، يمكنني قراءة نصوص قصيرة',
+      'advancedDesc': 'مطلع على الأمثال والشعر، أتحدى الصينية المتعمقة',
       // profile_tab.dart
       'learnerName': 'المتعلم',
       'myAchievements': 'إنجازاتي',
@@ -613,6 +683,12 @@ class AppLocalizations {
       // empty_page.dart
       'comingSoon': 'قريباً',
       'featureInDevelopment': 'الميزة قيد التطوير...',
+      // settings_page.dart
+      'resetOnboarding': 'إعادة تعيين الإرشاد',
+      'resetOnboardingDesc': 'عرض اختيار اللغة واختبار المستوى وتعيين الهدف مرة أخرى',
+      'confirmReset': 'إعادة التعيين؟',
+      'resetSuccess': 'تم إعادة التعيين. يرجى إعادة تشغيل التطبيق.',
+      'reset': 'إعادة التعيين',
     },
     'tr': {
       'appTitle': 'Chinese Go',
@@ -620,7 +696,7 @@ class AppLocalizations {
       'pleaseSelect': 'Lütfen ana dilinizi seçin',
       'confirm': 'Onayla',
       'chooseNativeLanguage': 'Ana Dil Seç',
-      'dailyGoalMinutes': 'Günlük Hedef (dakika)',
+      'dailyGoalMinutes': 'Günlük Hedef (günde)',
       'minutes': 'dakika',
       'home': 'Ana Sayfa',
       'learning': 'Öğrenme',
@@ -644,12 +720,14 @@ class AppLocalizations {
       'wordsLabel': 'Kelimeler',
       'sentencesLabel': 'Cümleler',
       'advancedLabel': 'Gelişmiş',
+      'grammarLabel': 'Dilbilgisi',
       'unitDay': 'gün',
       'unitDays': 'gün',
       'unitHour': 'saat',
       'unitHours': 'saat',
       'unitItem': 'öğe',
       'unitItems': 'öğe',
+      'myFavorites': 'Favorilerim',
       'myFavorites': 'Favorilerim',
       'learn': 'Öğren',
       'currentLevel': 'Mevcut Seviye',
@@ -664,6 +742,9 @@ class AppLocalizations {
       'totalDays': 'Toplam Gün',
       'totalHours': 'Toplam Saat',
       'settings': 'Ayarlar',
+      'editUsername': 'Kullanıcı Adını Düzenle',
+      'enterNewUsername': 'Yeni kullanıcı adı girin',
+      'save': 'Kaydet',
       'language': 'Dil',
       'dailyGoal': 'Günlük Hedef',
       'notifications': 'Bildirimler',
@@ -717,10 +798,6 @@ class AppLocalizations {
       'holdToRecord': 'Kaydetmek için basılı tutun',
       'slideUpToCancel': 'İptal etmek için yukarı kaydırın',
       // advanced_practice.dart
-      'idioms': 'Deyimler',
-      'proverbs': 'Atasözleri/Sözler',
-      'poetry': 'Şiir',
-      'culture': 'Kültürel Bilgi',
       'chineseExplanation': 'Çince Açıklama',
       'dataNotLoaded': '(Veri yüklenmedi, geçici olarak boş)',
       // listening_practice.dart
@@ -745,9 +822,18 @@ class AppLocalizations {
       'dailyConsistency': 'Düzenlilik görünür ilerleme getirir',
       'startLearning': 'Öğrenmeye Başla',
       'goal5min': '5 dakika/gün',
+      'goal5desc': 'Kolay başlangıç, istediğiniz zaman öğrenin',
       'goal15min': '15 dakika/gün',
+      'goal15desc': 'Istikrarlı ilerleme, günlük kayıt',
       'goal30min': '30 dakika/gün',
+      'goal30desc': 'Etkili öğrenme, hızlı ilerleme',
       'goal60min': '60 dakika/gün',
+      'goal60desc': 'Derin dalış, kapsamlı atılım',
+      // level descriptions
+      'beginnerDesc': 'Yeni başladım, birkaç Çince karakter biliyorum',
+      'elementaryDesc': 'Basit günlük konuşmalar yapabilirim',
+      'intermediateDesc': 'Sık kullanılan kelimeleri öğrendim, kısa metinler okuyabilirim',
+      'advancedDesc': 'Deyimler ve şiirlerle tanışım, derin Çinceyi meydan okum',
       // profile_tab.dart
       'learnerName': 'Öğrenen',
       'myAchievements': 'Başarılarım',
@@ -756,13 +842,21 @@ class AppLocalizations {
       'myFavorites': 'Favorilerim',
       'noFavoritesYet': 'Henüz favori yok',
       // review_page.dart
+      'reviewTitle': 'Gözden Geçirme',
       'review': 'Gözden Geçirme',
       'wordsReview': 'Kelime Gözden Geçirme',
       'sentencesReview': 'Cümle Gözden Geçirme',
       'advancedReview': 'İleri Gözden Geçirme',
+      'idiomsProverbsPoetry': 'Deyimler / Atasözleri / Şiir',
       // empty_page.dart
       'comingSoon': 'Yakında',
       'featureInDevelopment': 'Özellik geliştirme aşamasında...',
+      // settings_page.dart
+      'resetOnboarding': 'Onboard Sıfırla',
+      'resetOnboardingDesc': 'Dil seçimini, seviye testini ve hedef ayarını tekrar göster',
+      'confirmReset': 'Sıfırla?',
+      'resetSuccess': 'Sıfırlandı. Lütfen uygulamayı yeniden başlatın.',
+      'reset': 'Sıfırla',
     },
   };
 
@@ -800,6 +894,9 @@ class AppLocalizations {
   String get totalDays => _localizedValues[locale.languageCode]?['totalDays'] ?? 'Total Days';
   String get totalHours => _localizedValues[locale.languageCode]?['totalHours'] ?? 'Total Hours';
   String get settings => _localizedValues[locale.languageCode]?['settings'] ?? 'Settings';
+  String get editUsername => _localizedValues[locale.languageCode]?['editUsername'] ?? 'Edit Username';
+  String get enterNewUsername => _localizedValues[locale.languageCode]?['enterNewUsername'] ?? 'Enter new username';
+  String get save => _localizedValues[locale.languageCode]?['save'] ?? 'Save';
   String get language => _localizedValues[locale.languageCode]?['language'] ?? 'Language';
   String get dailyGoal => _localizedValues[locale.languageCode]?['dailyGoal'] ?? 'Daily Goal';
   String get notifications => _localizedValues[locale.languageCode]?['notifications'] ?? 'Notifications';
@@ -815,8 +912,9 @@ class AppLocalizations {
   String get wordsLabel => _localizedValues[locale.languageCode]?['wordsLabel'] ?? 'Words';
   String get sentencesLabel => _localizedValues[locale.languageCode]?['sentencesLabel'] ?? 'Sentences';
   String get advancedLabel => _localizedValues[locale.languageCode]?['advancedLabel'] ?? 'Advanced';
+  String get grammarLabel => _localizedValues[locale.languageCode]?['grammarLabel'] ?? 'Grammar';
   String get myFavorites => _localizedValues[locale.languageCode]?['myFavorites'] ?? 'My Favorites';
-  
+
   // 单位文本
   String get unitDay => _localizedValues[locale.languageCode]?['unitDay'] ?? 'day';
   String get unitDays => _localizedValues[locale.languageCode]?['unitDays'] ?? 'days';
@@ -902,6 +1000,14 @@ class AppLocalizations {
   String get myAchievements => _localizedValues[locale.languageCode]?['myAchievements'] ?? 'My Achievements';
   String get learningProgress => _localizedValues[locale.languageCode]?['learningProgress'] ?? 'Learning Progress';
 
+  // settings_page.dart中的文本
+  String get resetOnboarding => _localizedValues[locale.languageCode]?['resetOnboarding'] ?? 'Reset Onboarding';
+  String get resetOnboardingDesc => _localizedValues[locale.languageCode]?['resetOnboardingDesc'] ?? 'Show language selection, level test and goal setting again';
+  String get confirmReset => _localizedValues[locale.languageCode]?['confirmReset'] ?? 'Reset?';
+  String get resetSuccess => _localizedValues[locale.languageCode]?['resetSuccess'] ?? 'Reset successful. Please restart the app.';
+  String get reset => _localizedValues[locale.languageCode]?['reset'] ?? 'Reset';
+  String get cancel => _localizedValues[locale.languageCode]?['confirm'] ?? 'Cancel';
+
   // level_test.dart中的文本
   String get whatsYourLevel => _localizedValues[locale.languageCode]?['whatsYourLevel'] ?? 'What is your Chinese level?';
   String get selectBestOption => _localizedValues[locale.languageCode]?['selectBestOption'] ?? 'Select the option that best matches your current situation';
@@ -916,9 +1022,19 @@ class AppLocalizations {
   String get dailyConsistency => _localizedValues[locale.languageCode]?['dailyConsistency'] ?? 'Consistency brings visible progress';
   String get startLearning => _localizedValues[locale.languageCode]?['startLearning'] ?? 'Start Learning';
   String get goal5min => _localizedValues[locale.languageCode]?['goal5min'] ?? '5 min/day';
+  String get goal5desc => _localizedValues[locale.languageCode]?['goal5desc'] ?? 'Easy start, learn anytime';
   String get goal15min => _localizedValues[locale.languageCode]?['goal15min'] ?? '15 min/day';
+  String get goal15desc => _localizedValues[locale.languageCode]?['goal15desc'] ?? 'Steady progress, daily check-in';
   String get goal30min => _localizedValues[locale.languageCode]?['goal30min'] ?? '30 min/day';
+  String get goal30desc => _localizedValues[locale.languageCode]?['goal30desc'] ?? 'Efficient learning, fast progress';
   String get goal60min => _localizedValues[locale.languageCode]?['goal60min'] ?? '60 min/day';
+  String get goal60desc => _localizedValues[locale.languageCode]?['goal60desc'] ?? 'Deep immersion, comprehensive breakthrough';
+
+  // level descriptions
+  String get beginnerDesc => _localizedValues[locale.languageCode]?['beginnerDesc'] ?? 'Just started, know a few Chinese characters';
+  String get elementaryDesc => _localizedValues[locale.languageCode]?['elementaryDesc'] ?? 'Can have simple daily conversations';
+  String get intermediateDesc => _localizedValues[locale.languageCode]?['intermediateDesc'] ?? 'Master common words, can read short texts';
+  String get advancedDesc => _localizedValues[locale.languageCode]?['advancedDesc'] ?? 'Familiar with idioms and poetry, challenge deep Chinese';
 
   // 动态文本方法
   String minutesText(int count) => '$count ${_localizedValues[locale.languageCode]?['minutes'] ?? 'minutes'}';

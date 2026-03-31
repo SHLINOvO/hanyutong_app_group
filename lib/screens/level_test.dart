@@ -31,25 +31,25 @@ class _LevelTestState extends State<LevelTest> {
         'id': 'beginner',
         'emoji': '🌱',
         'title': loc.levelBeginner,
-        'desc': '刚开始学习，认识少量汉字', // 这个描述也需要本地化，但目前没有对应的键
+        'desc': loc.beginnerDesc,
       },
       {
         'id': 'elementary',
         'emoji': '📗',
         'title': loc.levelElementary,
-        'desc': '能进行简单日常对话', // 这个描述也需要本地化，但目前没有对应的键
+        'desc': loc.elementaryDesc,
       },
       {
         'id': 'intermediate',
         'emoji': '📘',
         'title': loc.levelIntermediate,
-        'desc': '掌握常用词汇，能读短文', // 这个描述也需要本地化，但目前没有对应的键
+        'desc': loc.intermediateDesc,
       },
       {
         'id': 'advanced',
         'emoji': '🏆',
         'title': loc.levelAdvanced,
-        'desc': '熟悉成语古诗，挑战深度中文', // 这个描述也需要本地化，但目前没有对应的键
+        'desc': loc.advancedDesc,
       },
     ];
   }
@@ -176,14 +176,6 @@ class _LevelCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                       color: Color(0xFF333333),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    level['desc']!,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      color: Color(0xFF666666),
                     ),
                   ),
                 ],

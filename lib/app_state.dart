@@ -9,6 +9,7 @@ class AppState extends ChangeNotifier {
   String _level = 'beginner';
   int _dailyGoal = 15;
   bool _isOnboarded = false;
+  String _username = '';
 
   // ---------- 学习统计 ----------
   int _streak = 0;
@@ -22,6 +23,11 @@ class AppState extends ChangeNotifier {
   int _learningTime = 0;
   bool _showGoalPopup = false;
 
+  // ---------- 计时器相关 ----------
+  DateTime? _sessionStartTime; // 本次学习会话开始时间
+  DateTime? _lastLearningDate; // 上次学习日期,用于计算连续天数
+  bool _goalReachedToday = false; // 今天是否已达成目标
+
   // ---------- 收藏 ----------
   Set<String> _favorites = {};
 
@@ -30,6 +36,7 @@ class AppState extends ChangeNotifier {
   String get level => _level;
   int get dailyGoal => _dailyGoal;
   bool get isOnboarded => _isOnboarded;
+  String get username => _username.isEmpty ? 'Learner' : _username;
   int get streak => _streak;
   int get totalDays => _totalDays;
   int get totalHours => _totalHours;
@@ -47,6 +54,7 @@ class AppState extends ChangeNotifier {
     _level = prefs.getString('level') ?? 'beginner';
     _dailyGoal = prefs.getInt('dailyGoal') ?? 15;
     _isOnboarded = prefs.getBool('isOnboarded') ?? false;
+    _username = prefs.getString('username') ?? '';
     _streak = prefs.getInt('streak') ?? 0;
     _totalDays = prefs.getInt('totalDays') ?? 0;
     _totalHours = prefs.getInt('totalHours') ?? 0;
@@ -54,10 +62,51 @@ class AppState extends ChangeNotifier {
     _masteredSentences = prefs.getInt('masteredSentences') ?? 42;
     _masteredAdvanced = prefs.getInt('masteredAdvanced') ?? 15;
     _learningTime = prefs.getInt('todayLearningTime') ?? 0;
+    _showGoalPopup = prefs.getBool('showGoalPopup') ?? false;
+    final lastDateStr = prefs.getString('lastLearningDate');
+    if (lastDateStr != null) {
+      _lastLearningDate = DateTime.parse(lastDateStr);
+    }
+    _goalReachedToday = prefs.getBool('goalReachedToday') ?? false;
+
+    // 检查是否是新的一天,重置今日学习时间
+    _checkNewDay();
+
     final favJson = prefs.getString('favorites');
     if (favJson != null) {
       final List list = jsonDecode(favJson);
       _favorites = list.cast<String>().toSet();
+    }
+  }
+
+  // 检查是否是新的学习日期,并处理连续学习天数
+  void _checkNewDay() {
+    if (_lastLearningDate != null) {
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      final lastDate = DateTime(_lastLearningDate!.year, _lastLearningDate!.month, _lastLearningDate!.day);
+
+      final difference = today.difference(lastDate).inDays;
+
+      if (difference > 1) {
+        // 如果超过一天没有学习,连续天数归零
+        if (_streak > 0) {
+          _streak = 0;
+          _save((p) async => p.setInt('streak', 0));
+        }
+      }
+
+      if (difference >= 1) {
+        // 新的一天,重置今日学习时间和达成目标标志
+        _learningTime = 0;
+        _goalReachedToday = false;
+        _showGoalPopup = false;
+        _save((p) async {
+          p.setInt('todayLearningTime', 0);
+          p.setBool('goalReachedToday', false);
+          p.setBool('showGoalPopup', false);
+        });
+      }
     }
   }
 
@@ -90,6 +139,19 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  // 重置引导状态(用于测试)
+  void resetOnboarding() {
+    _isOnboarded = false;
+    _save((p) async => p.setBool('isOnboarded', false));
+    notifyListeners();
+  }
+
+  void setUsername(String name) {
+    _username = name;
+    _save((p) async => p.setString('username', name));
+    notifyListeners();
+  }
+
   void toggleFavorite(String item) {
     final newSet = Set<String>.from(_favorites);
     if (newSet.contains(item)) {
@@ -104,13 +166,44 @@ class AppState extends ChangeNotifier {
 
   void setShowGoalPopup(bool show) {
     _showGoalPopup = show;
+    _save((p) async => p.setBool('showGoalPopup', show));
     notifyListeners();
   }
 
+  // 开始学习计时(进入学习页面时调用)
+  void startLearningSession() {
+    _checkNewDay(); // 检查是否是新的一天
+    if (_sessionStartTime == null && !_goalReachedToday) {
+      _sessionStartTime = DateTime.now();
+    }
+  }
+
+  // 结束学习计时(退出学习页面时调用)
+  void endLearningSession() {
+    if (_sessionStartTime != null && !_goalReachedToday) {
+      final now = DateTime.now();
+      final duration = now.difference(_sessionStartTime!).inMinutes;
+
+      if (duration > 0) {
+        addLearningTime(duration);
+      }
+
+      _sessionStartTime = null;
+
+      // 更新最后学习日期
+      _lastLearningDate = DateTime.now();
+      _save((p) async => p.setString('lastLearningDate', _lastLearningDate!.toIso8601String()));
+    }
+  }
+
+  // 手动添加学习时间(保留原有方法)
   void addLearningTime(int minutes) {
     final prev = _learningTime;
     _learningTime += minutes;
-    if (prev < _dailyGoal && _learningTime >= _dailyGoal) {
+
+    // 如果达到目标且今天还没达到过
+    if (prev < _dailyGoal && _learningTime >= _dailyGoal && !_goalReachedToday) {
+      _goalReachedToday = true;
       _showGoalPopup = true;
       _streak++;
       _totalDays++;
@@ -119,8 +212,11 @@ class AppState extends ChangeNotifier {
         p.setInt('streak', _streak);
         p.setInt('totalDays', _totalDays);
         p.setInt('totalHours', _totalHours);
+        p.setBool('goalReachedToday', _goalReachedToday);
+        p.setBool('showGoalPopup', _showGoalPopup);
       });
     }
+
     _save((p) async => p.setInt('todayLearningTime', _learningTime));
     notifyListeners();
   }

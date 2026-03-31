@@ -26,10 +26,10 @@ class _GoalSettingState extends State<GoalSetting> {
   List<Map<String, Object>> _buildGoals(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     return [
-      {'value': 5, 'emoji': '⚡', 'title': loc.goal5min, 'desc': '轻松入门，随时随地'}, // 这个描述也需要本地化，但目前没有对应的键
-      {'value': 15, 'emoji': '🎯', 'title': loc.goal15min, 'desc': '稳步提升，每日打卡'}, // 这个描述也需要本地化，但目前没有对应的键
-      {'value': 30, 'emoji': '🔥', 'title': loc.goal30min, 'desc': '高效学习，快速进步'}, // 这个描述也需要本地化，但目前没有对应的键
-      {'value': 60, 'emoji': '🏅', 'title': loc.goal60min, 'desc': '深度沉浸，全面突破'}, // 这个描述也需要本地化，但目前没有对应的键
+      {'value': 5, 'emoji': '⚡', 'title': loc.goal5min, 'desc': loc.goal5desc},
+      {'value': 15, 'emoji': '🎯', 'title': loc.goal15min, 'desc': loc.goal15desc},
+      {'value': 30, 'emoji': '🔥', 'title': loc.goal30min, 'desc': loc.goal30desc},
+      {'value': 60, 'emoji': '🏅', 'title': loc.goal60min, 'desc': loc.goal60desc},
     ];
   }
 
@@ -153,10 +153,6 @@ class _GoalCard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                           color: Color(0xFF333333))),
-                  const SizedBox(height: 4),
-                  Text(goal['desc'] as String,
-                      style: const TextStyle(
-                          fontSize: 13, color: Color(0xFF666666))),
                 ],
               ),
             ),

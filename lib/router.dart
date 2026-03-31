@@ -18,6 +18,7 @@ import 'screens/practice_page.dart';
 import 'screens/listening_practice.dart';
 import 'screens/advanced_practice.dart';
 import 'screens/empty_page.dart';
+import 'screens/settings_page.dart';
 
 GoRouter buildRouter(BuildContext context) {
   return GoRouter(
@@ -207,6 +208,20 @@ GoRouter buildRouter(BuildContext context) {
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
           child: const EmptyPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          transitionDuration: const Duration(milliseconds: 200),
+        ),
+      ),
+      GoRoute(
+        path: '/settings',
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+          key: state.pageKey,
+          child: const SettingsPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
               opacity: animation,

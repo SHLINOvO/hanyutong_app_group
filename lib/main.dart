@@ -36,8 +36,119 @@ void main() async {
   );
 }
 
-class ChineseGoApp extends StatelessWidget {
+class ChineseGoApp extends StatefulWidget {
   const ChineseGoApp({super.key});
+
+  @override
+  State<ChineseGoApp> createState() => _ChineseGoAppState();
+}
+
+class _ChineseGoAppState extends State<ChineseGoApp> {
+  bool _hasShownPopupToday = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final appState = Provider.of<AppState>(context, listen: false);
+
+    // 监听目标达成弹窗
+    appState.addListener(() {
+      if (appState.showGoalPopup && !_hasShownPopupToday) {
+        _hasShownPopupToday = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            _showGoalReachedDialog(context, appState);
+          }
+        });
+      }
+    });
+  }
+
+  void _showGoalReachedDialog(BuildContext context, AppState appState) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                color: const Color(0xFF4285F4).withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.celebration,
+                size: 60,
+                color: Color(0xFF4285F4),
+              ),
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              '🎉',
+              style: TextStyle(fontSize: 48),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              '今日目标已达成!',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF333333),
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              '你已经学习了 ${appState.learningTime} 分钟',
+              style: const TextStyle(
+                fontSize: 16,
+                color: Color(0xFF666666),
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              '连续学习: ${appState.streak} 天',
+              style: const TextStyle(
+                fontSize: 16,
+                color: Color(0xFF666666),
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 32),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  appState.setShowGoalPopup(false);
+                  Navigator.of(context).pop();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4285F4),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: const Text(
+                  '继续加油',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ).then((_) {
+      // 弹窗关闭后重置标志
+      _hasShownPopupToday = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

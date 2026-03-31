@@ -201,9 +201,7 @@ flutter create --platforms=windows .
 flutter run -d windows
 ```
 
-> **详细指南** 请参阅 [`运行指南.md`](./运行指南.md)，包含 Flutter SDK 安装、PATH 配置、flutter doctor 问题排查、模拟器创建、常见报错解决等完整步骤。
-
-### Windows 窗口说明
+> **Windows 窗口说明**：App 在 Windows 上以手机比例运行（390×844），由 `window_manager` 控制窗口大小，模拟真实手机体验。
 
 App 在 Windows 上以手机比例运行（390×844），由 `window_manager` 控制窗口大小，模拟真实手机体验。
 
