@@ -23,6 +23,16 @@ dependencies:
   cupertino_icons: ^1.0.8
   # Windows 桌面窗口管理（控制窗口大小/标题等）
   window_manager: ^0.3.9
+  # 录音（支持 Android + Windows + iOS + macOS）
+  record: ^5.2.1
+  # 权限申请（麦克风等，Android/iOS 使用）
+  permission_handler: ^11.3.1
+  # 获取临时目录（存放录音文件）
+  path_provider: ^2.1.4
+  # Edge TTS（微软在线语音合成，中文发音质量高）
+  edge_tts: ^0.1.4
+  # 音频播放器（播放 TTS 返回的 MP3 数据）
+  audioplayers: ^6.1.0
   # 国际化支持（必须放在 dependencies 以便 Release/真机构建可用）
   flutter_localizations:
     sdk: flutter
@@ -35,6 +45,9 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.1
   # ARB文件生成工具（可选，用于开发时快速生成）
   # flutter_localizations_utils: ^0.4.0
+
+dependency_overrides:
+  record_linux: ^1.3.0
 
 flutter:
   uses-material-design: true

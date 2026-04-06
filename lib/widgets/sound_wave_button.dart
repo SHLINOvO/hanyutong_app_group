@@ -1,9 +1,12 @@
 ﻿import 'package:flutter/material.dart';
 
 /// 带声波动画的喇叭按钮
-/// 点击后播放声波扩散动画，模拟正在播放音频的效果
+///
+/// 点击后通过 [onTap] 回调通知外部播放 TTS，
+/// 外部负责调用 [stopAnimation] 来停止动画。
 ///
 /// 参数说明：
+/// - [text]      : 要朗读的文本（非空时点击会回调 onTap）
 /// - [size]      : 按钮直径（默认36）
 /// - [iconSize]  : 图标大小（默认 size * 0.5，可手动覆盖）
 /// - [color]     : 一键设置主色（同时应用到 iconColor 和 waveColor）
@@ -31,10 +34,10 @@ class SoundWaveButton extends StatefulWidget {
   });
 
   @override
-  State<SoundWaveButton> createState() => _SoundWaveButtonState();
+  State<SoundWaveButton> createState() => SoundWaveButtonState();
 }
 
-class _SoundWaveButtonState extends State<SoundWaveButton>
+class SoundWaveButtonState extends State<SoundWaveButton>
     with TickerProviderStateMixin {
   late AnimationController _waveController;
   late AnimationController _iconController;
@@ -76,23 +79,28 @@ class _SoundWaveButtonState extends State<SoundWaveButton>
     if (_isPlaying) {
       // 正在播放 → 停止
       _waveController.stop();
+      _waveController.reset();
       setState(() => _isPlaying = false);
     } else {
       // 开始播放
       _waveController.repeat();
       setState(() => _isPlaying = true);
-      // 模拟2秒后停止
-      Future.delayed(const Duration(milliseconds: 2000), () {
-        if (mounted && _isPlaying) {
-          _waveController.stop();
-          _waveController.reset();
-          setState(() => _isPlaying = false);
-        }
-      });
     }
 
     widget.onTap?.call();
   }
+
+  /// 外部调用：TTS 播放完成后停止动画
+  void stopAnimation() {
+    if (mounted && _isPlaying) {
+      _waveController.stop();
+      _waveController.reset();
+      setState(() => _isPlaying = false);
+    }
+  }
+
+  /// 当前是否正在播放（外部可用于判断状态）
+  bool get isPlaying => _isPlaying;
 
   @override
   Widget build(BuildContext context) {

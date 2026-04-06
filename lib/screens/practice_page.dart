@@ -1,11 +1,16 @@
-﻿import 'dart:math';
+﻿import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:record/record.dart';
 import '../app_state.dart';
 import '../l10n/app_localizations.dart';
 import '../models/word_model.dart';
 import '../models/word_repository.dart';
+import '../services/tts_service.dart';
 import '../widgets/sound_wave_button.dart';
 
 class PracticePage extends StatefulWidget {
@@ -32,6 +37,22 @@ class _PracticePageState extends State<PracticePage> {
   bool _showAnswer = false;
   Map<String, int> _pronScore = {'tone': 85, 'sound': 90};
   Map<String, int> _meaningScore = {'literal': 80, 'extended': 75, 'practical': 85};
+
+  // ── 录音 ──
+  final AudioRecorder _audioRecorder = AudioRecorder();
+  // ignore: unused_field  （预留字段：接入评分后端时使用）
+  String? _recordedPath; // 最近一次录音文件路径
+
+  // ── TTS 语音播放 ──
+  final TtsService _tts = TtsService();
+  final GlobalKey<SoundWaveButtonState> _speakerKey = GlobalKey();
+
+  @override
+  void dispose() {
+    _audioRecorder.dispose();
+    _tts.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -67,13 +88,47 @@ class _PracticePageState extends State<PracticePage> {
   WordModel? get _currentWord =>
       _words.isNotEmpty ? _words[_currentIndex % _words.length] : null;
 
+  // ── 申请麦克风权限 ──
+  Future<bool> _requestMicPermission() async {
+    // Windows 直接通过 AudioRecorder 检查（系统会弹授权窗口）
+    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+      return await _audioRecorder.hasPermission();
+    }
+    // Android / iOS 通过 permission_handler 申请
+    final status = await Permission.microphone.request();
+    return status.isGranted;
+  }
+
   // 按住开始录音
-  void _handleLongPressStart(LongPressStartDetails details) {
-    setState(() {
-      _isRecording = true;
-      _isCancelling = false;
-      _dragStartY = details.globalPosition.dy;
-    });
+  void _handleLongPressStart(LongPressStartDetails details) async {
+    final granted = await _requestMicPermission();
+    if (!granted) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('需要麦克风权限才能录音')),
+        );
+      }
+      return;
+    }
+
+    // 生成临时文件路径
+    final dir = await getTemporaryDirectory();
+    final path =
+        '${dir.path}/rec_${DateTime.now().millisecondsSinceEpoch}.m4a';
+
+    await _audioRecorder.start(
+      const RecordConfig(encoder: AudioEncoder.aacLc),
+      path: path,
+    );
+
+    if (mounted) {
+      setState(() {
+        _isRecording = true;
+        _isCancelling = false;
+        _dragStartY = details.globalPosition.dy;
+        _recordedPath = path;
+      });
+    }
   }
 
   // 拖动中检测是否上滑超过阈值（50px）
@@ -86,35 +141,56 @@ class _PracticePageState extends State<PracticePage> {
   }
 
   // 松手：若处于取消状态则取消，否则结束录音并提交
-  void _handleLongPressEnd(LongPressEndDetails details) {
+  void _handleLongPressEnd(LongPressEndDetails details) async {
+    final path = await _audioRecorder.stop();
+
     if (_isCancelling) {
-      // 取消录音，恢复初始状态
-      setState(() {
-        _isRecording = false;
-        _isCancelling = false;
-      });
+      // 取消录音，删除临时文件
+      if (path != null) {
+        try {
+          File(path).deleteSync();
+        } catch (_) {}
+      }
+      if (mounted) {
+        setState(() {
+          _isRecording = false;
+          _isCancelling = false;
+          _recordedPath = null;
+        });
+      }
     } else {
-      // 正常结束录音，模拟评分
-      final rnd = Random();
-      setState(() {
-        _isRecording = false;
-        _isCancelling = false;
-        if (_step == 'pronunciation') {
-          _pronScore = {
-            'tone': rnd.nextInt(30) + 70,
-            'sound': rnd.nextInt(30) + 70,
-          };
-          _showPronunciationScore = true;
-        } else {
-          _meaningScore = {
-            'literal': rnd.nextInt(30) + 70,
-            'extended': rnd.nextInt(30) + 70,
-            'practical': rnd.nextInt(30) + 70,
-          };
-          _showMeaningScore = true;
-        }
-      });
+      // 正常结束录音，path 为录音文件路径（可传给评分后端）
+      if (mounted) {
+        setState(() {
+          _isRecording = false;
+          _isCancelling = false;
+          _recordedPath = path;
+        });
+      }
+      _submitRecording(path);
     }
+  }
+
+  // 提交录音（当前先保留模拟分数，后端接好后替换）
+  void _submitRecording(String? path) {
+    // TODO: 将 path 上传至评分后端，用真实结果替换随机分
+    final rnd = Random();
+    setState(() {
+      if (_step == 'pronunciation') {
+        _pronScore = {
+          'tone': rnd.nextInt(30) + 70,
+          'sound': rnd.nextInt(30) + 70,
+        };
+        _showPronunciationScore = true;
+      } else {
+        _meaningScore = {
+          'literal': rnd.nextInt(30) + 70,
+          'extended': rnd.nextInt(30) + 70,
+          'practical': rnd.nextInt(30) + 70,
+        };
+        _showMeaningScore = true;
+      }
+    });
   }
 
   void _handleNextStep() {
@@ -422,11 +498,22 @@ class _PracticePageState extends State<PracticePage> {
                               ),
                             ),
                           ),
-                          // Speaker — 声波动画
-                          const Positioned(
+                          // Speaker — 点击播放中文语音
+                          Positioned(
                             bottom: 0,
                             right: 0,
-                            child: SoundWaveButton(size: 36),
+                            child: SoundWaveButton(
+                              key: _speakerKey,
+                              size: 36,
+                              onTap: () {
+                                final word = _currentWord;
+                                if (word != null) {
+                                  _tts.speak(word.word).then((_) {
+                                    _speakerKey.currentState?.stopAnimation();
+                                  });
+                                }
+                              },
+                            ),
                           ),
                         ],
                       ),

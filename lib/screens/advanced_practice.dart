@@ -1,7 +1,11 @@
-﻿import 'dart:math';
+﻿import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:record/record.dart';
 import '../app_state.dart';
 import '../l10n/app_localizations.dart';
 import '../models/idiom_model.dart';
@@ -10,6 +14,7 @@ import '../models/proverb_model.dart';
 import '../models/proverb_repository.dart';
 import '../models/poetry_model.dart';
 import '../models/poetry_repository.dart';
+import '../services/tts_service.dart';
 import '../widgets/sound_wave_button.dart';
 
 class AdvancedPractice extends StatefulWidget {
@@ -63,6 +68,22 @@ class _AdvancedPracticeState extends State<AdvancedPractice> {
   final Map<String, Map<String, bool>> _poemMeaningTapped = {};
   Map<String, int> _pronScore = {'tone': 85, 'sound': 90};
   Map<String, int> _meaningScore = {'literal': 80, 'extended': 75, 'practical': 85};
+
+  // ── 录音 ──
+  final AudioRecorder _audioRecorder = AudioRecorder();
+  // ignore: unused_field  （预留字段：接入评分后端时使用）
+  String? _recordedPath;
+
+  // ── TTS 语音播放 ──
+  final TtsService _tts = TtsService();
+  final GlobalKey<SoundWaveButtonState> _idiomSpeakerKey = GlobalKey();
+
+  @override
+  void dispose() {
+    _audioRecorder.dispose();
+    _tts.dispose();
+    super.dispose();
+  }
 
   /// 获取当前成语（仅 idioms 类型使用真实数据）
   IdiomModel? get _currentIdiom {
@@ -333,12 +354,43 @@ class _AdvancedPracticeState extends State<AdvancedPractice> {
     );
   }
 
-  void _handleLongPressStart(LongPressStartDetails details) {
-    setState(() {
-      _isRecording = true;
-      _isCancelling = false;
-      _dragStartY = details.globalPosition.dy;
-    });
+  // ── 申请麦克风权限 ──
+  Future<bool> _requestMicPermission() async {
+    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+      return await _audioRecorder.hasPermission();
+    }
+    final status = await Permission.microphone.request();
+    return status.isGranted;
+  }
+
+  void _handleLongPressStart(LongPressStartDetails details) async {
+    final granted = await _requestMicPermission();
+    if (!granted) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('需要麦克风权限才能录音')),
+        );
+      }
+      return;
+    }
+
+    final dir = await getTemporaryDirectory();
+    final path =
+        '${dir.path}/rec_${DateTime.now().millisecondsSinceEpoch}.m4a';
+
+    await _audioRecorder.start(
+      const RecordConfig(encoder: AudioEncoder.aacLc),
+      path: path,
+    );
+
+    if (mounted) {
+      setState(() {
+        _isRecording = true;
+        _isCancelling = false;
+        _dragStartY = details.globalPosition.dy;
+        _recordedPath = path;
+      });
+    }
   }
 
   void _handleLongPressMoveUpdate(LongPressMoveUpdateDetails details) {
@@ -349,30 +401,51 @@ class _AdvancedPracticeState extends State<AdvancedPractice> {
     }
   }
 
-  void _handleLongPressEnd(LongPressEndDetails details) {
+  void _handleLongPressEnd(LongPressEndDetails details) async {
+    final path = await _audioRecorder.stop();
+
     if (_isCancelling) {
-      setState(() {
-        _isRecording = false;
-        _isCancelling = false;
-      });
+      if (path != null) {
+        try {
+          File(path).deleteSync();
+        } catch (_) {}
+      }
+      if (mounted) {
+        setState(() {
+          _isRecording = false;
+          _isCancelling = false;
+          _recordedPath = null;
+        });
+      }
     } else {
-      final rnd = Random();
-      setState(() {
-        _isRecording = false;
-        _isCancelling = false;
-        if (_step == 'pronunciation') {
-          _pronScore = {'tone': rnd.nextInt(30) + 70, 'sound': rnd.nextInt(30) + 70};
-          _showPronScore = true;
-        } else {
-          _meaningScore = {
-            'literal': rnd.nextInt(30) + 70,
-            'extended': rnd.nextInt(30) + 70,
-            'practical': rnd.nextInt(30) + 70,
-          };
-          _showMeaningScore = true;
-        }
-      });
+      if (mounted) {
+        setState(() {
+          _isRecording = false;
+          _isCancelling = false;
+          _recordedPath = path;
+        });
+      }
+      _submitRecording(path);
     }
+  }
+
+  // 提交录音（当前先保留模拟分数，后端接好后替换）
+  void _submitRecording(String? path) {
+    // TODO: 将 path 上传至评分后端，用真实结果替换随机分
+    final rnd = Random();
+    setState(() {
+      if (_step == 'pronunciation') {
+        _pronScore = {'tone': rnd.nextInt(30) + 70, 'sound': rnd.nextInt(30) + 70};
+        _showPronScore = true;
+      } else {
+        _meaningScore = {
+          'literal': rnd.nextInt(30) + 70,
+          'extended': rnd.nextInt(30) + 70,
+          'practical': rnd.nextInt(30) + 70,
+        };
+        _showMeaningScore = true;
+      }
+    });
   }
 
   void _handleNextStep() => setState(() { _showPronScore = false; _step = 'meaning'; });
@@ -990,11 +1063,19 @@ class _AdvancedPracticeState extends State<AdvancedPractice> {
                                 ),
                               ),
                             ),
-                            // Speaker — 声波动画
-                            const Positioned(
+                            // Speaker — 点击播放中文语音
+                            Positioned(
                               bottom: 0,
                               right: 4,
-                              child: SoundWaveButton(size: 36),
+                              child: SoundWaveButton(
+                                key: _idiomSpeakerKey,
+                                size: 36,
+                                onTap: () {
+                                  _tts.speak(_currentChinese).then((_) {
+                                    _idiomSpeakerKey.currentState?.stopAnimation();
+                                  });
+                                },
+                              ),
                             ),
                           ],
                         ),
