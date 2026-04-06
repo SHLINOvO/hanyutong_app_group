@@ -66,7 +66,7 @@ class _AdvancedPracticeState extends State<AdvancedPractice> {
   bool _showPoetryNativeMeaning = false;
   /// 追踪每首诗词的释义查看状态 {poemId: {chinese: bool, native: bool}}
   final Map<String, Map<String, bool>> _poemMeaningTapped = {};
-  Map<String, int> _pronScore = {'tone': 85, 'sound': 90};
+  int _pronScore = 85; // 中文发音评分（单条，方便接入大模型）
   int _meaningScore = 80; // 含义评分（合并为单条）
 
   // ── 录音 ──
@@ -435,7 +435,7 @@ class _AdvancedPracticeState extends State<AdvancedPractice> {
     final rnd = Random();
     setState(() {
       if (_step == 'pronunciation') {
-        _pronScore = {'tone': rnd.nextInt(30) + 70, 'sound': rnd.nextInt(30) + 70};
+        _pronScore = rnd.nextInt(30) + 70;
         _showPronScore = true;
       } else {
         _meaningScore = rnd.nextInt(30) + 70;
@@ -1157,8 +1157,7 @@ class _AdvancedPracticeState extends State<AdvancedPractice> {
             _bottomSheet(
               title: loc.pronunciationScore,
               items: [
-                _scoreRow(loc.toneAccuracy, _pronScore['tone']!, _scoreColor(_pronScore['tone']!)),
-                _scoreRow(loc.soundAccuracy, _pronScore['sound']!, _scoreColor(_pronScore['sound']!)),
+                _scoreRow(loc.pronunciationAccuracy, _pronScore, _scoreColor(_pronScore)),
               ],
               action: ElevatedButton(
                 onPressed: _handleNextStep,

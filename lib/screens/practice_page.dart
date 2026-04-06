@@ -35,7 +35,7 @@ class _PracticePageState extends State<PracticePage> {
   bool _showPronunciationScore = false;
   bool _showMeaningScore = false;
   bool _showAnswer = false;
-  Map<String, int> _pronScore = {'tone': 85, 'sound': 90};
+  int _pronScore = 85; // 中文发音评分（单条，方便接入大模型）
   int _meaningScore = 80; // 含义评分（合并为单条）
 
   // ── 录音 ──
@@ -177,10 +177,7 @@ class _PracticePageState extends State<PracticePage> {
     final rnd = Random();
     setState(() {
       if (_step == 'pronunciation') {
-        _pronScore = {
-          'tone': rnd.nextInt(30) + 70,
-          'sound': rnd.nextInt(30) + 70,
-        };
+        _pronScore = rnd.nextInt(30) + 70;
         _showPronunciationScore = true;
       } else {
         _meaningScore = rnd.nextInt(30) + 70;
@@ -602,8 +599,7 @@ class _PracticePageState extends State<PracticePage> {
             _ScoreSheet(
               title: loc.pronunciationScore,
               items: [
-                _ScoreItem(label: loc.toneAccuracy, score: _pronScore['tone']!),
-                _ScoreItem(label: loc.soundAccuracy, score: _pronScore['sound']!),
+                _ScoreItem(label: loc.pronunciationAccuracy, score: _pronScore),
               ],
               scoreColor: _scoreColor,
               actions: [

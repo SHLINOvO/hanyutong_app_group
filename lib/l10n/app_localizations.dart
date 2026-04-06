@@ -114,8 +114,7 @@ class AppLocalizations {
       'skipIdiomMasteredTitle': 'Have you already mastered this idiom?',
       'skipProverbMasteredTitle': 'Have you already mastered this proverb?',
       'pronunciationScore': 'Pronunciation Score 🎤',
-      'toneAccuracy': 'Tone Accuracy',
-      'soundAccuracy': 'Sound Accuracy',
+      'pronunciationAccuracy': 'Pronunciation Accuracy',
       'nextStepExplain': 'Next Step: Explain Meaning →',
       'meaningScore': 'Meaning Score 💡',
       'meaningAccuracy': 'Meaning Accuracy',
@@ -305,8 +304,7 @@ class AppLocalizations {
       'skipIdiomMasteredTitle': 'Вы уже освоили эту идиому?',
       'skipProverbMasteredTitle': 'Вы уже освоили эту пословицу?',
       'pronunciationScore': 'Оценка произношения 🎤',
-      'toneAccuracy': 'Точность тонов',
-      'soundAccuracy': 'Точность звуков',
+      'pronunciationAccuracy': 'Точность произношения',
       'nextStepExplain': 'Следующий шаг: Объяснение значения →',
       'meaningScore': 'Оценка понимания 💡',
       'meaningAccuracy': 'Точность понимания',
@@ -495,8 +493,7 @@ class AppLocalizations {
       'skipIdiomMasteredTitle': 'آیا این اصطلاح را قبلاً یاد گرفته‌اید؟',
       'skipProverbMasteredTitle': 'آیا این ضرب‌المثل را قبلاً یاد گرفته‌اید؟',
       'pronunciationScore': 'امتیاز تلفظ 🎤',
-      'toneAccuracy': 'دقت تون',
-      'soundAccuracy': 'دقت صدا',
+      'pronunciationAccuracy': 'دقت تلفظ',
       'nextStepExplain': 'مرحله بعد: توضیح معنی →',
       'meaningScore': 'امتیاز معنی 💡',
       'meaningAccuracy': 'دقت معنی',
@@ -688,8 +685,7 @@ class AppLocalizations {
       'skipIdiomMasteredTitle': 'هل أتقنت هذه العبارة بالفعل؟',
       'skipProverbMasteredTitle': 'هل أتقنت هذه الحكمة بالفعل؟',
       'pronunciationScore': 'نتيجة النطق 🎤',
-      'toneAccuracy': 'دقة النغمة',
-      'soundAccuracy': 'دقة الصوت',
+      'pronunciationAccuracy': 'دقة النطق',
       'nextStepExplain': 'الخطوة التالية: شرح المعنى →',
       'meaningScore': 'نتيجة المعنى 💡',
       'meaningAccuracy': 'دقة المعنى',
@@ -882,8 +878,7 @@ class AppLocalizations {
       'skipIdiomMasteredTitle': 'Bu deyimi zaten öğrendiniz mi?',
       'skipProverbMasteredTitle': 'Bu atasözünü zaten öğrendiniz mi?',
       'pronunciationScore': 'Telaffuz Puanı 🎤',
-      'toneAccuracy': 'Ton Doğruluğu',
-      'soundAccuracy': 'Ses Doğruluğu',
+      'pronunciationAccuracy': 'Telaffuz Doğruluğu',
       'nextStepExplain': 'Sonraki Adım: Anlamı Açıkla →',
       'meaningScore': 'Anlama Puanı 💡',
       'meaningAccuracy': 'Anlama Doğruluğu',
@@ -1078,8 +1073,7 @@ class AppLocalizations {
   String get skipIdiomMasteredTitle => _localizedValues[locale.languageCode]?['skipIdiomMasteredTitle'] ?? 'Have you already mastered this idiom?';
   String get skipProverbMasteredTitle => _localizedValues[locale.languageCode]?['skipProverbMasteredTitle'] ?? 'Have you already mastered this proverb?';
   String get pronunciationScore => _localizedValues[locale.languageCode]?['pronunciationScore'] ?? 'Pronunciation Score 🎤';
-  String get toneAccuracy => _localizedValues[locale.languageCode]?['toneAccuracy'] ?? 'Tone Accuracy';
-  String get soundAccuracy => _localizedValues[locale.languageCode]?['soundAccuracy'] ?? 'Sound Accuracy';
+  String get pronunciationAccuracy => _localizedValues[locale.languageCode]?['pronunciationAccuracy'] ?? 'Pronunciation Accuracy';
   String get nextStepExplain => _localizedValues[locale.languageCode]?['nextStepExplain'] ?? 'Next Step: Explain Meaning →';
   String get meaningScore => _localizedValues[locale.languageCode]?['meaningScore'] ?? 'Meaning Score 💡';
   String get meaningAccuracy => _localizedValues[locale.languageCode]?['meaningAccuracy'] ?? 'Meaning Accuracy';

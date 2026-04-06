@@ -279,9 +279,7 @@ class AppState extends ChangeNotifier {
   // 开始学习计时(进入学习页面时调用)
   void startLearningSession() {
     _checkNewDay(); // 检查是否是新的一天
-    if (_sessionStartTime == null) {
-      _sessionStartTime = DateTime.now();
-    }
+    _sessionStartTime ??= DateTime.now();
   }
 
   // 结束学习计时(退出学习页面时调用)
