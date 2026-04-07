@@ -51,10 +51,17 @@ class AiService {
     // 读取文件并转 base64（Data URL 格式）
     final bytes = await file.readAsBytes();
     final mimeType = _getMimeType(audioPath);
-    final base64Audio = base64Encode(bytes);
-    final dataUrl = 'data:$mimeType;base64,$base64Audio';
 
     debugPrint('🎙️ ASR 请求: 文件=${audioPath.split("/").last}, 大小=${bytes.length}B, MIME=$mimeType');
+
+    // 检测静音/空音频：文件过小（< 5KB）视为用户未发声
+    if (bytes.length < 5 * 1024) {
+      debugPrint('🔇 音频文件过小 (${bytes.length}B)，判定为未发声');
+      throw const _SilentAudioException('音频为空或未发声');
+    }
+
+    final base64Audio = base64Encode(bytes);
+    final dataUrl = 'data:$mimeType;base64,$base64Audio';
 
     // 限制音频大小（10MB）
     if (bytes.length > 10 * 1024 * 1024) {
@@ -94,6 +101,14 @@ class AiService {
     debugPrint('🎙️ ASR 响应: status=${response.statusCode}, body=${response.body.length > 500 ? response.body.substring(0, 500) : response.body}');
 
     if (response.statusCode != 200) {
+      // 识别"音频为空"错误（API 返回 400 InvalidParameter 且 message 含 audio is empty）
+      if (response.statusCode == 400) {
+        final body = response.body.toLowerCase();
+        if (body.contains('audio is empty') || body.contains('empty')) {
+          debugPrint('🔇 ASR 判定音频为空');
+          throw const _SilentAudioException('音频为空，用户未发声');
+        }
+      }
       throw Exception('ASR API 请求失败: ${response.statusCode} ${response.body}');
     }
 
@@ -160,7 +175,8 @@ class AiService {
       final transcript = await transcribeAudio(audioPath, languageHint: 'zh');
 
       if (transcript.isEmpty) {
-        return Random().nextInt(20) + 50; // 50-69，没听清
+        debugPrint('🔇 ASR 返回空文字，发音评分为 0');
+        return 0;
       }
 
       // 2. 用通义千问对比 ASR 结果和正确答案
@@ -193,7 +209,11 @@ class AiService {
       return score.clamp(0, 100);
     } catch (e) {
       debugPrint('❌ 发音评分异常: $e');
-      // ASR 或 API 异常时使用模拟分数
+      // 静音/空音频 → 0 分
+      if (e is _SilentAudioException) return 0;
+      // 文件不存在 → 0 分
+      if (e.toString().contains('音频文件不存在')) return 0;
+      // 其他网络/API 异常 → 随机分（避免误伤正常用户）
       return Random().nextInt(25) + 70; // 70-94
     }
   }
@@ -222,7 +242,8 @@ class AiService {
       final transcript = await transcribeAudio(audioPath, languageHint: languageCode);
 
       if (transcript.isEmpty) {
-        return Random().nextInt(20) + 40; // 40-59，没听清
+        debugPrint('🔇 ASR 返回空文字，语义评分为 0');
+        return 0;
       }
 
       // 2. 预检测语言：如果识别结果包含中文字符，说明用户读了中文原文而非用母语解释
@@ -261,6 +282,11 @@ class AiService {
       return score.clamp(0, 100);
     } catch (e) {
       debugPrint('❌ 语义评分异常: $e');
+      // 静音/空音频 → 0 分
+      if (e is _SilentAudioException) return 0;
+      // 文件不存在 → 0 分
+      if (e.toString().contains('音频文件不存在')) return 0;
+      // 其他网络/API 异常 → 随机分
       return Random().nextInt(20) + 60; // 60-79
     }
   }
@@ -328,4 +354,13 @@ class AiService {
   static bool _containsChinese(String text) {
     return text.runes.any((rune) => rune >= 0x4E00 && rune <= 0x9FFF);
   }
+}
+
+/// 静音/空音频异常（用户未发声，或录音文件为空）
+class _SilentAudioException implements Exception {
+  final String message;
+  const _SilentAudioException(this.message);
+
+  @override
+  String toString() => '_SilentAudioException: $message';
 }
