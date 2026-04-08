@@ -172,6 +172,57 @@ class AppLocalizations {
       // profile_tab.dart
       'learnerName': 'Learner',
       'myAchievements': 'My Achievements',
+      // 徽章 - 类别1: 入门
+      'badgeBeginner': 'Beginner',
+      'badgeBeginnerDesc': 'Master your first word, idiom or proverb',
+      'badgeExplorer': 'Explorer',
+      'badgeExplorerDesc': 'Explore 5 different learning sections',
+      // 徽章 - 类别2: 词语
+      'badgeWordLearner': 'Word Learner',
+      'badgeWordLearnerDesc': 'Master 10 words',
+      'badgeWordKnight': 'Word Knight',
+      'badgeWordKnightDesc': 'Master 30 words',
+      'badgeWordMaster': 'Word Master',
+      'badgeWordMasterDesc': 'Master 50 words',
+      'badgeWordLegend': 'Word Legend',
+      'badgeWordLegendDesc': 'Master 100 words',
+      // 徽章 - 类别3: 成语
+      'badgeIdiomFirst': 'Idiom Starter',
+      'badgeIdiomFirstDesc': 'Master your first idiom',
+      'badgeIdiomAdept': 'Idiom Adept',
+      'badgeIdiomAdeptDesc': 'Master 5 idioms',
+      'badgeIdiomMaster': 'Idiom Master',
+      'badgeIdiomMasterDesc': 'Master 10 idioms',
+      // 徽章 - 类别4: 谚语
+      'badgeProverbFirst': 'Proverb Starter',
+      'badgeProverbFirstDesc': 'Master your first proverb',
+      'badgeProverbAdept': 'Proverb Adept',
+      'badgeProverbAdeptDesc': 'Master 5 proverbs',
+      'badgeProverbSage': 'Proverb Sage',
+      'badgeProverbSageDesc': 'Master 10 proverbs',
+      // 徽章 - 类别5: 连续学习
+      'badgeStreak3': 'Keep Going',
+      'badgeStreak3Desc': 'Study 3 days in a row',
+      'badgeStreak7': 'Week Warrior',
+      'badgeStreak7Desc': 'Study 7 days in a row',
+      'badgeStreak14': 'Fortnight Pro',
+      'badgeStreak14Desc': 'Study 14 days in a row',
+      'badgeStreak30': 'Monthly Champion',
+      'badgeStreak30Desc': 'Study 30 days in a row',
+      'badgeStreak100': 'Century Hero',
+      'badgeStreak100Desc': 'Study 100 days in a row',
+      // 徽章 - 类别6: 诗词
+      'badgePoemLover': 'Poetry Lover',
+      'badgePoemLoverDesc': 'Learn 3 poems',
+      'badgePoemScholar': 'Poetry Scholar',
+      'badgePoemScholarDesc': 'Learn 8 poems',
+      // 徽章 - 类别7: 收藏
+      'badgeCollector': 'Collector',
+      'badgeCollectorDesc': 'Favorite 10 items',
+      'badgeTreasureHunter': 'Treasure Hunter',
+      'badgeTreasureHunterDesc': 'Favorite 25 items',
+      'badgeUnlocked': 'Badge Unlocked!',
+      'badgeLocked': 'Not yet unlocked',
       'learningProgress': 'Learning Progress',
       // review_page.dart
       'reviewTitle': 'Review',
@@ -364,6 +415,57 @@ class AppLocalizations {
       // profile_tab.dart
       'learnerName': 'Обучающийся',
       'myAchievements': 'Мои достижения',
+      // 徽章 - 类别1: 入门
+      'badgeBeginner': 'Начинающий',
+      'badgeBeginnerDesc': 'Освойте первое слово, идиому или пословицу',
+      'badgeExplorer': 'Исследователь',
+      'badgeExplorerDesc': 'Изучите 5 разных разделов',
+      // 徽章 - 类别2: 词语
+      'badgeWordLearner': 'Изучающий слова',
+      'badgeWordLearnerDesc': 'Освойте 10 слов',
+      'badgeWordKnight': 'Рыцарь слов',
+      'badgeWordKnightDesc': 'Освойте 30 слов',
+      'badgeWordMaster': 'Мастер слов',
+      'badgeWordMasterDesc': 'Освойте 50 слов',
+      'badgeWordLegend': 'Легенда слов',
+      'badgeWordLegendDesc': 'Освойте 100 слов',
+      // 徽章 - 类别3: 成语
+      'badgeIdiomFirst': 'Начало идиом',
+      'badgeIdiomFirstDesc': 'Освойте первую идиому',
+      'badgeIdiomAdept': 'Знаток идиом',
+      'badgeIdiomAdeptDesc': 'Освойте 5 идиом',
+      'badgeIdiomMaster': 'Мастер идиом',
+      'badgeIdiomMasterDesc': 'Освойте 10 идиом',
+      // 徽章 - 类别4: 谚语
+      'badgeProverbFirst': 'Начало пословиц',
+      'badgeProverbFirstDesc': 'Освойте первую пословицу',
+      'badgeProverbAdept': 'Знаток пословиц',
+      'badgeProverbAdeptDesc': 'Освойте 5 пословиц',
+      'badgeProverbSage': 'Мудрец пословиц',
+      'badgeProverbSageDesc': 'Освойте 10 пословиц',
+      // 徽章 - 类别5: 连续学习
+      'badgeStreak3': 'Не сдавайтесь',
+      'badgeStreak3Desc': 'Учитесь 3 дня подряд',
+      'badgeStreak7': 'Воин недели',
+      'badgeStreak7Desc': 'Учитесь 7 дней подряд',
+      'badgeStreak14': 'Профессионал',
+      'badgeStreak14Desc': 'Учитесь 14 дней подряд',
+      'badgeStreak30': 'Чемпион месяца',
+      'badgeStreak30Desc': 'Учитесь 30 дней подряд',
+      'badgeStreak100': 'Герой века',
+      'badgeStreak100Desc': 'Учитесь 100 дней подряд',
+      // 徽章 - 类别6: 诗词
+      'badgePoemLover': 'Любитель поэзии',
+      'badgePoemLoverDesc': 'Выучите 3 стихотворения',
+      'badgePoemScholar': 'Поэтический учёный',
+      'badgePoemScholarDesc': 'Выучите 8 стихотворений',
+      // 徽章 - 类别7: 收藏
+      'badgeCollector': 'Коллекционер',
+      'badgeCollectorDesc': 'Добавьте 10 избранных',
+      'badgeTreasureHunter': 'Кладоискатель',
+      'badgeTreasureHunterDesc': 'Добавьте 25 избранных',
+      'badgeUnlocked': 'Значок получен!',
+      'badgeLocked': 'Пока не получено',
       'learningProgress': 'Прогресс обучения',
       // review_page.dart
       'reviewTitle': 'Обзор',
@@ -555,6 +657,57 @@ class AppLocalizations {
       // profile_tab.dart
       'learnerName': 'یادگیرنده',
       'myAchievements': 'دستاوردهای من',
+      // 徽章 - 类别1: 入门
+      'badgeBeginner': 'مبتدی',
+      'badgeBeginnerDesc': 'اولین کلمه، عبارت یا ضرب‌المثل را بیاموزید',
+      'badgeExplorer': 'کاشف',
+      'badgeExplorerDesc': '۵ بخش مختلف یادگیری را کاوش کنید',
+      // 徽章 - 类别2: 词语
+      'badgeWordLearner': 'یادگیرنده کلمات',
+      'badgeWordLearnerDesc': '۱۰ کلمه را بیاموزید',
+      'badgeWordKnight': 'شوالیه کلمات',
+      'badgeWordKnightDesc': '۳۰ کلمه را بیاموزید',
+      'badgeWordMaster': 'استاد کلمات',
+      'badgeWordMasterDesc': '۵۰ کلمه را بیاموزید',
+      'badgeWordLegend': 'افسانه کلمات',
+      'badgeWordLegendDesc': '۱۰۰ کلمه را بیاموزید',
+      // 徽章 - 类别3: 成语
+      'badgeIdiomFirst': 'شروع عبارات',
+      'badgeIdiomFirstDesc': 'اولین عبارت را بیاموزید',
+      'badgeIdiomAdept': 'ماهر عبارات',
+      'badgeIdiomAdeptDesc': '۵ عبارت را بیاموزید',
+      'badgeIdiomMaster': 'استاد عبارات',
+      'badgeIdiomMasterDesc': '۱۰ عبارت را بیاموزید',
+      // 徽章 - 类别4: 谚语
+      'badgeProverbFirst': 'شروع ضرب‌المثل‌ها',
+      'badgeProverbFirstDesc': 'اولین ضرب‌المثل را بیاموزید',
+      'badgeProverbAdept': 'ماهر ضرب‌المثل‌ها',
+      'badgeProverbAdeptDesc': '۵ ضرب‌المثل را بیاموزید',
+      'badgeProverbSage': 'حکیم ضرب‌المثل‌ها',
+      'badgeProverbSageDesc': '۱۰ ضرب‌المثل را بیاموزید',
+      // 徽章 - 类别5: 连续学习
+      'badgeStreak3': 'ادامه دهید',
+      'badgeStreak3Desc': '۳ روز متوالی مطالعه کنید',
+      'badgeStreak7': 'جنگجوی هفته',
+      'badgeStreak7Desc': '۷ روز متوالی مطالعه کنید',
+      'badgeStreak14': 'حرفه‌ای دو هفته',
+      'badgeStreak14Desc': '۱۴ روز متوالی مطالعه کنید',
+      'badgeStreak30': 'قهرمان ماهانه',
+      'badgeStreak30Desc': '۳۰ روز متوالی مطالعه کنید',
+      'badgeStreak100': 'قهرمان صد روزه',
+      'badgeStreak100Desc': '۱۰۰ روز متوالی مطالعه کنید',
+      // 徽章 - 类别6: 诗词
+      'badgePoemLover': 'عاشق شعر',
+      'badgePoemLoverDesc': '۳ شعر بیاموزید',
+      'badgePoemScholar': 'دانشمند شعر',
+      'badgePoemScholarDesc': '۸ شعر بیاموزید',
+      // 徽章 - 类别7: 收藏
+      'badgeCollector': 'جمع‌آوری‌کننده',
+      'badgeCollectorDesc': '۱۰ مورد را به علاقه‌مندی‌ها اضافه کنید',
+      'badgeTreasureHunter': 'شکارچی گنج',
+      'badgeTreasureHunterDesc': '۲۵ مورد را به علاقه‌مندی‌ها اضافه کنید',
+      'badgeUnlocked': 'نشان دریافت شد!',
+      'badgeLocked': 'هنوز دریافت نشده',
       'learningProgress': 'پیشرفت یادگیری',
       // favorites_page.dart
       'noFavoritesYet': 'هنوز موردعلاقه‌ای وجود ندارد',
@@ -749,6 +902,57 @@ class AppLocalizations {
       // profile_tab.dart
       'learnerName': 'المتعلم',
       'myAchievements': 'إنجازاتي',
+      // 徽章 - 类别1: 入门
+      'badgeBeginner': 'مبتدئ',
+      'badgeBeginnerDesc': 'أتقن أول كلمة أو عبارة أو مثل',
+      'badgeExplorer': 'مستكشف',
+      'badgeExplorerDesc': 'استكشف 5 أقسام تعلم مختلفة',
+      // 徽章 - 类别2: 词语
+      'badgeWordLearner': 'متعلم الكلمات',
+      'badgeWordLearnerDesc': 'أتقن 10 كلمات',
+      'badgeWordKnight': 'فارس الكلمات',
+      'badgeWordKnightDesc': 'أتقن 30 كلمة',
+      'badgeWordMaster': 'أستاذ الكلمات',
+      'badgeWordMasterDesc': 'أتقن 50 كلمة',
+      'badgeWordLegend': 'أسطورة الكلمات',
+      'badgeWordLegendDesc': 'أتقن 100 كلمة',
+      // 徽章 - 类别3: 成语
+      'badgeIdiomFirst': 'بداية العبارات',
+      'badgeIdiomFirstDesc': 'أتقن أول عبارة',
+      'badgeIdiomAdept': 'ماهر العبارات',
+      'badgeIdiomAdeptDesc': 'أتقن 5 عبارات',
+      'badgeIdiomMaster': 'أستاذ العبارات',
+      'badgeIdiomMasterDesc': 'أتقن 10 عبارات',
+      // 徽章 - 类别4: 谚语
+      'badgeProverbFirst': 'بداية الحكم',
+      'badgeProverbFirstDesc': 'أتقن أول حكمة',
+      'badgeProverbAdept': 'ماهر الحكم',
+      'badgeProverbAdeptDesc': 'أتقن 5 حكم',
+      'badgeProverbSage': 'حكيم الحكم',
+      'badgeProverbSageDesc': 'أتقن 10 حكم',
+      // 徽章 - 类别5: 连续学习
+      'badgeStreak3': 'استمر',
+      'badgeStreak3Desc': 'ادرس 3 أيام متتالية',
+      'badgeStreak7': 'محارب الأسبوع',
+      'badgeStreak7Desc': 'ادرس 7 أيام متتالية',
+      'badgeStreak14': 'محترف الأسبوعين',
+      'badgeStreak14Desc': 'ادرس 14 يوماً متتالياً',
+      'badgeStreak30': 'بطل الشهري',
+      'badgeStreak30Desc': 'ادرس 30 يوماً متتالياً',
+      'badgeStreak100': 'بطل القرن',
+      'badgeStreak100Desc': 'ادرس 100 يوماً متتالياً',
+      // 徽章 - 类别6: 诗词
+      'badgePoemLover': 'عاشق الشعر',
+      'badgePoemLoverDesc': 'تعلم 3 قصائد',
+      'badgePoemScholar': 'عالم الشعر',
+      'badgePoemScholarDesc': 'تعلم 8 قصائد',
+      // 徽章 - 类别7: 收藏
+      'badgeCollector': 'جامع',
+      'badgeCollectorDesc': 'أضف 10 مفضلات',
+      'badgeTreasureHunter': 'صياد الكنوز',
+      'badgeTreasureHunterDesc': 'أضف 25 مفضلات',
+      'badgeUnlocked': 'تم فتح الشارة!',
+      'badgeLocked': 'لم تُفتح بعد',
       'learningProgress': 'تقدم التعلم',
       // favorites_page.dart
       'noFavoritesYet': 'لا مفضلات حتى الآن',
@@ -944,6 +1148,57 @@ class AppLocalizations {
       // profile_tab.dart
       'learnerName': 'Öğrenen',
       'myAchievements': 'Başarılarım',
+      // 徽章 - 类别1: 入门
+      'badgeBeginner': 'Başlangıç',
+      'badgeBeginnerDesc': 'İlk kelime, deyim veya atasözünü öğrenin',
+      'badgeExplorer': 'Kaşif',
+      'badgeExplorerDesc': '5 farklı öğrenme bölümünü keşfedin',
+      // 徽章 - 类别2: 词语
+      'badgeWordLearner': 'Kelime Öğrenici',
+      'badgeWordLearnerDesc': '10 kelime öğrenin',
+      'badgeWordKnight': 'Kelime Şövalyesi',
+      'badgeWordKnightDesc': '30 kelime öğrenin',
+      'badgeWordMaster': 'Kelime Ustası',
+      'badgeWordMasterDesc': '50 kelime öğrenin',
+      'badgeWordLegend': 'Kelime Efsanesi',
+      'badgeWordLegendDesc': '100 kelime öğrenin',
+      // 徽章 - 类别3: 成语
+      'badgeIdiomFirst': 'Deyim Başlangıcı',
+      'badgeIdiomFirstDesc': 'İlk deyimi öğrenin',
+      'badgeIdiomAdept': 'Deyim Uzmanı',
+      'badgeIdiomAdeptDesc': '5 deyim öğrenin',
+      'badgeIdiomMaster': 'Deyim Ustası',
+      'badgeIdiomMasterDesc': '10 deyim öğrenin',
+      // 徽章 - 类别4: 谚语
+      'badgeProverbFirst': 'Atasözü Başlangıcı',
+      'badgeProverbFirstDesc': 'İlk atasözünü öğrenin',
+      'badgeProverbAdept': 'Atasözü Uzmanı',
+      'badgeProverbAdeptDesc': '5 atasözü öğrenin',
+      'badgeProverbSage': 'Atasözü Bilgesi',
+      'badgeProverbSageDesc': '10 atasözü öğrenin',
+      // 徽章 - 类别5: 连续学习
+      'badgeStreak3': 'Devam Et',
+      'badgeStreak3Desc': '3 gün üst üste çalışın',
+      'badgeStreak7': 'Haftalık Savaşçı',
+      'badgeStreak7Desc': '7 gün üst üste çalışın',
+      'badgeStreak14': 'İki Haftalık Uzman',
+      'badgeStreak14Desc': '14 gün üst üste çalışın',
+      'badgeStreak30': 'Aylık Şampiyon',
+      'badgeStreak30Desc': '30 gün üst üste çalışın',
+      'badgeStreak100': 'Yüzyılın Kahramanı',
+      'badgeStreak100Desc': '100 gün üst üste çalışın',
+      // 徽章 - 类别6: 诗词
+      'badgePoemLover': 'Şiir Aşığı',
+      'badgePoemLoverDesc': '3 şiir öğrenin',
+      'badgePoemScholar': 'Şiir Bilgini',
+      'badgePoemScholarDesc': '8 şiir öğrenin',
+      // 徽章 - 类别7: 收藏
+      'badgeCollector': 'Koleksiyoncu',
+      'badgeCollectorDesc': '10 favorileme yapın',
+      'badgeTreasureHunter': 'Hazine Avcısı',
+      'badgeTreasureHunterDesc': '25 favorileme yapın',
+      'badgeUnlocked': 'Rozet Kazanıldı!',
+      'badgeLocked': 'Henüz kazanılmadı',
       'learningProgress': 'Öğrenme İlerlemesi',
       // review_page.dart
       'reviewTitle': 'Gözden Geçirme',
@@ -1137,6 +1392,57 @@ class AppLocalizations {
   // profile_tab.dart中的文本
   String get learnerName => _localizedValues[locale.languageCode]?['learnerName'] ?? 'Learner';
   String get myAchievements => _localizedValues[locale.languageCode]?['myAchievements'] ?? 'My Achievements';
+  // 徽章 - 类别1: 入门
+  String get badgeBeginner => _localizedValues[locale.languageCode]?['badgeBeginner'] ?? 'Beginner';
+  String get badgeBeginnerDesc => _localizedValues[locale.languageCode]?['badgeBeginnerDesc'] ?? 'Master your first word, idiom or proverb';
+  String get badgeExplorer => _localizedValues[locale.languageCode]?['badgeExplorer'] ?? 'Explorer';
+  String get badgeExplorerDesc => _localizedValues[locale.languageCode]?['badgeExplorerDesc'] ?? 'Explore 5 different learning sections';
+  // 徽章 - 类别2: 词语
+  String get badgeWordLearner => _localizedValues[locale.languageCode]?['badgeWordLearner'] ?? 'Word Learner';
+  String get badgeWordLearnerDesc => _localizedValues[locale.languageCode]?['badgeWordLearnerDesc'] ?? 'Master 10 words';
+  String get badgeWordKnight => _localizedValues[locale.languageCode]?['badgeWordKnight'] ?? 'Word Knight';
+  String get badgeWordKnightDesc => _localizedValues[locale.languageCode]?['badgeWordKnightDesc'] ?? 'Master 30 words';
+  String get badgeWordMaster => _localizedValues[locale.languageCode]?['badgeWordMaster'] ?? 'Word Master';
+  String get badgeWordMasterDesc => _localizedValues[locale.languageCode]?['badgeWordMasterDesc'] ?? 'Master 50 words';
+  String get badgeWordLegend => _localizedValues[locale.languageCode]?['badgeWordLegend'] ?? 'Word Legend';
+  String get badgeWordLegendDesc => _localizedValues[locale.languageCode]?['badgeWordLegendDesc'] ?? 'Master 100 words';
+  // 徽章 - 类别3: 成语
+  String get badgeIdiomFirst => _localizedValues[locale.languageCode]?['badgeIdiomFirst'] ?? 'Idiom Starter';
+  String get badgeIdiomFirstDesc => _localizedValues[locale.languageCode]?['badgeIdiomFirstDesc'] ?? 'Master your first idiom';
+  String get badgeIdiomAdept => _localizedValues[locale.languageCode]?['badgeIdiomAdept'] ?? 'Idiom Adept';
+  String get badgeIdiomAdeptDesc => _localizedValues[locale.languageCode]?['badgeIdiomAdeptDesc'] ?? 'Master 5 idioms';
+  String get badgeIdiomMaster => _localizedValues[locale.languageCode]?['badgeIdiomMaster'] ?? 'Idiom Master';
+  String get badgeIdiomMasterDesc => _localizedValues[locale.languageCode]?['badgeIdiomMasterDesc'] ?? 'Master 10 idioms';
+  // 徽章 - 类别4: 谚语
+  String get badgeProverbFirst => _localizedValues[locale.languageCode]?['badgeProverbFirst'] ?? 'Proverb Starter';
+  String get badgeProverbFirstDesc => _localizedValues[locale.languageCode]?['badgeProverbFirstDesc'] ?? 'Master your first proverb';
+  String get badgeProverbAdept => _localizedValues[locale.languageCode]?['badgeProverbAdept'] ?? 'Proverb Adept';
+  String get badgeProverbAdeptDesc => _localizedValues[locale.languageCode]?['badgeProverbAdeptDesc'] ?? 'Master 5 proverbs';
+  String get badgeProverbSage => _localizedValues[locale.languageCode]?['badgeProverbSage'] ?? 'Proverb Sage';
+  String get badgeProverbSageDesc => _localizedValues[locale.languageCode]?['badgeProverbSageDesc'] ?? 'Master 10 proverbs';
+  // 徽章 - 类别5: 连续学习
+  String get badgeStreak3 => _localizedValues[locale.languageCode]?['badgeStreak3'] ?? 'Keep Going';
+  String get badgeStreak3Desc => _localizedValues[locale.languageCode]?['badgeStreak3Desc'] ?? 'Study 3 days in a row';
+  String get badgeStreak7 => _localizedValues[locale.languageCode]?['badgeStreak7'] ?? 'Week Warrior';
+  String get badgeStreak7Desc => _localizedValues[locale.languageCode]?['badgeStreak7Desc'] ?? 'Study 7 days in a row';
+  String get badgeStreak14 => _localizedValues[locale.languageCode]?['badgeStreak14'] ?? 'Fortnight Pro';
+  String get badgeStreak14Desc => _localizedValues[locale.languageCode]?['badgeStreak14Desc'] ?? 'Study 14 days in a row';
+  String get badgeStreak30 => _localizedValues[locale.languageCode]?['badgeStreak30'] ?? 'Monthly Champion';
+  String get badgeStreak30Desc => _localizedValues[locale.languageCode]?['badgeStreak30Desc'] ?? 'Study 30 days in a row';
+  String get badgeStreak100 => _localizedValues[locale.languageCode]?['badgeStreak100'] ?? 'Century Hero';
+  String get badgeStreak100Desc => _localizedValues[locale.languageCode]?['badgeStreak100Desc'] ?? 'Study 100 days in a row';
+  // 徽章 - 类别6: 诗词
+  String get badgePoemLover => _localizedValues[locale.languageCode]?['badgePoemLover'] ?? 'Poetry Lover';
+  String get badgePoemLoverDesc => _localizedValues[locale.languageCode]?['badgePoemLoverDesc'] ?? 'Learn 3 poems';
+  String get badgePoemScholar => _localizedValues[locale.languageCode]?['badgePoemScholar'] ?? 'Poetry Scholar';
+  String get badgePoemScholarDesc => _localizedValues[locale.languageCode]?['badgePoemScholarDesc'] ?? 'Learn 8 poems';
+  // 徽章 - 类别7: 收藏
+  String get badgeCollector => _localizedValues[locale.languageCode]?['badgeCollector'] ?? 'Collector';
+  String get badgeCollectorDesc => _localizedValues[locale.languageCode]?['badgeCollectorDesc'] ?? 'Favorite 10 items';
+  String get badgeTreasureHunter => _localizedValues[locale.languageCode]?['badgeTreasureHunter'] ?? 'Treasure Hunter';
+  String get badgeTreasureHunterDesc => _localizedValues[locale.languageCode]?['badgeTreasureHunterDesc'] ?? 'Favorite 25 items';
+  String get badgeUnlocked => _localizedValues[locale.languageCode]?['badgeUnlocked'] ?? 'Badge Unlocked!';
+  String get badgeLocked => _localizedValues[locale.languageCode]?['badgeLocked'] ?? 'Not yet unlocked';
   String get learningProgress => _localizedValues[locale.languageCode]?['learningProgress'] ?? 'Learning Progress';
 
   // settings_page.dart中的文本

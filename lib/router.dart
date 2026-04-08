@@ -21,6 +21,7 @@ import 'screens/idioms_review_page.dart';
 import 'screens/proverbs_review_page.dart';
 import 'screens/poetry_detail_page.dart';
 import 'screens/culture_practice_page.dart';
+import 'screens/achievements_page.dart';
 import 'models/poetry_model.dart';
 
 GoRouter buildRouter(BuildContext context) {
@@ -312,6 +313,20 @@ GoRouter buildRouter(BuildContext context) {
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
           child: const SettingsPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          transitionDuration: const Duration(milliseconds: 200),
+        ),
+      ),
+      GoRoute(
+        path: '/achievements',
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+          key: state.pageKey,
+          child: const AchievementsPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
               opacity: animation,

@@ -35,6 +35,14 @@ class AppState extends ChangeNotifier {
   // ---------- 诗词已学习（中文释义和母语释义都点过才标记） ----------
   Set<String> _learnedPoemIds = {};
 
+  // ---------- 已访问的学习内容类型（用于 explorer 徽章） ----------
+  Set<String> _visitedSections = {};
+
+  // ---------- 已解锁徽章 ----------
+  Set<String> _unlockedBadgeIds = {};
+  // ---------- 徽章解锁时间（用于确定最新成就） ----------
+  Map<String, DateTime> _badgeUnlockTimes = {};
+
   // ---------- Getters ----------
   String get language => _language;
   String get level => _level;
@@ -56,6 +64,16 @@ class AppState extends ChangeNotifier {
   Set<String> get masteredProverbIds => _masteredProverbIds;
   Set<String> get learnedPoemIds => _learnedPoemIds;
   int get learnedPoems => _learnedPoemIds.length;
+  Set<String> get visitedSections => _visitedSections;
+  Set<String> get unlockedBadgeIds => _unlockedBadgeIds;
+  Map<String, DateTime> get badgeUnlockTimes => _badgeUnlockTimes;
+
+  /// 获取最新解锁的N个成就ID（按解锁时间倒序）
+  List<String> getLatestUnlockedBadges(int count) {
+    final sorted = _badgeUnlockTimes.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value)); // 最新的在前
+    return sorted.take(count).map((e) => e.key).toList();
+  }
 
   // ---------- 初始化（从 SharedPreferences 读取） ----------
   Future<void> init() async {
@@ -108,6 +126,25 @@ class AppState extends ChangeNotifier {
     if (learnedPoemJson != null) {
       final List list = jsonDecode(learnedPoemJson);
       _learnedPoemIds = list.cast<String>().toSet();
+    }
+
+    final badgeJson = prefs.getString('unlockedBadgeIds');
+    if (badgeJson != null) {
+      final List list = jsonDecode(badgeJson);
+      _unlockedBadgeIds = list.cast<String>().toSet();
+    }
+
+    // 读取徽章解锁时间
+    final badgeTimeJson = prefs.getString('badgeUnlockTimes');
+    if (badgeTimeJson != null) {
+      final Map<String, dynamic> map = jsonDecode(badgeTimeJson);
+      _badgeUnlockTimes = map.map((k, v) => MapEntry(k, DateTime.parse(v as String)));
+    }
+
+    final visitedJson = prefs.getString('visitedSections');
+    if (visitedJson != null) {
+      final List list = jsonDecode(visitedJson);
+      _visitedSections = list.cast<String>().toSet();
     }
   }
 
@@ -214,6 +251,10 @@ class AppState extends ChangeNotifier {
       await p.setInt('todayLearningTime', 0);
       await p.setBool('goalReachedToday', false);
       await p.remove('lastLearningDate');
+      // 徽章 & 访问记录
+      await p.remove('unlockedBadgeIds');
+      await p.remove('badgeUnlockTimes');
+      await p.remove('visitedSections');
     });
     notifyListeners();
   }
@@ -276,6 +317,16 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// 标记已访问某学习内容类型（用于 explorer 徽章）
+  void markSectionVisited(String section) {
+    if (_visitedSections.contains(section)) return;
+    _visitedSections.add(section);
+    _save((p) async {
+      p.setString('visitedSections', jsonEncode(_visitedSections.toList()));
+    });
+    notifyListeners();
+  }
+
   // 开始学习计时(进入学习页面时调用)
   void startLearningSession() {
     _checkNewDay(); // 检查是否是新的一天
@@ -323,5 +374,87 @@ class AppState extends ChangeNotifier {
       p.setInt('totalMinutes', _totalMinutes);
     });
     notifyListeners();
+  }
+
+  // ---------- 徽章解锁 ----------
+
+  /// 解锁指定徽章（已解锁则忽略）
+  void unlockBadge(String badgeId) {
+    if (_unlockedBadgeIds.contains(badgeId)) return;
+    _unlockedBadgeIds.add(badgeId);
+    _badgeUnlockTimes[badgeId] = DateTime.now();
+    _save((p) async {
+      p.setString('unlockedBadgeIds', jsonEncode(_unlockedBadgeIds.toList()));
+      p.setString('badgeUnlockTimes', jsonEncode(
+        _badgeUnlockTimes.map((k, v) => MapEntry(k, v.toIso8601String())),
+      ));
+    });
+    notifyListeners();
+  }
+
+  /// 检查并解锁徽章（在学习数据变化后调用）
+  /// [totalWords] 当前难度总词数（用于检查全部掌握）
+  void checkAndUnlockBadges({int totalWords = 0}) {
+    // ── 类别1: 入门 ──
+    // 🌟 初学者：掌握任意 1 个内容
+    if (_masteredWordIds.isNotEmpty ||
+        _masteredIdiomIds.isNotEmpty ||
+        _masteredProverbIds.isNotEmpty) {
+      unlockBadge('beginner');
+    }
+    // 🧭 探索者：访问过 5 种学习内容类型
+    if (_visitedSections.length >= 5) {
+      unlockBadge('explorer');
+    }
+
+    // ── 类别2: 词语 ──
+    // 📖 词语新手：掌握 10 个词语
+    if (_masteredWordIds.length >= 10) unlockBadge('wordLearner');
+    // 🛡️ 词语骑士：掌握 30 个词语
+    if (_masteredWordIds.length >= 30) unlockBadge('wordKnight');
+    // 🎖️ 词语大师：掌握 50 个词语
+    if (_masteredWordIds.length >= 50) unlockBadge('wordMaster');
+    // 💎 词语传奇：掌握 100 个词语
+    if (_masteredWordIds.length >= 100) unlockBadge('wordLegend');
+
+    // ── 类别3: 成语 ──
+    // 💡 成语启蒙：掌握 1 个成语
+    if (_masteredIdiomIds.isNotEmpty) unlockBadge('idiomFirst');
+    // 🔮 成语熟练：掌握 5 个成语
+    if (_masteredIdiomIds.length >= 5) unlockBadge('idiomAdept');
+    // ✨ 成语大师：掌握 10 个成语
+    if (_masteredIdiomIds.length >= 10) unlockBadge('idiomMaster');
+
+    // ── 类别4: 谚语 ──
+    // 📜 谚语启蒙：掌握 1 个谚语
+    if (_masteredProverbIds.isNotEmpty) unlockBadge('proverbFirst');
+    // 📚 谚语熟练：掌握 5 个谚语
+    if (_masteredProverbIds.length >= 5) unlockBadge('proverbAdept');
+    // 🏫 谚语智者：掌握 10 个谚语
+    if (_masteredProverbIds.length >= 10) unlockBadge('proverbSage');
+
+    // ── 类别5: 连续学习 ──
+    // 🔥 坚持不懈：连续学习 3 天
+    if (_streak >= 3) unlockBadge('streak3');
+    // 🏅 一周勇士：连续学习 7 天
+    if (_streak >= 7) unlockBadge('streak7');
+    // 🎉 双周达人：连续学习 14 天
+    if (_streak >= 14) unlockBadge('streak14');
+    // 🏆 月度冠军：连续学习 30 天
+    if (_streak >= 30) unlockBadge('streak30');
+    // 👑 百日英雄：连续学习 100 天
+    if (_streak >= 100) unlockBadge('streak100');
+
+    // ── 类别6: 诗词 ──
+    // 🌙 诗词爱好者：学习 3 首诗词
+    if (_learnedPoemIds.length >= 3) unlockBadge('poemLover');
+    // 🔧 诗词学者：学习 8 首诗词
+    if (_learnedPoemIds.length >= 8) unlockBadge('poemScholar');
+
+    // ── 类别7: 收藏 ──
+    // ❤️ 收藏达人：收藏 10 个内容
+    if (_favorites.length >= 10) unlockBadge('collector');
+    // ⭐ 宝藏猎人：收藏 25 个内容
+    if (_favorites.length >= 25) unlockBadge('treasureHunter');
   }
 }
