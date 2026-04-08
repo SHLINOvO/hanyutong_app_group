@@ -396,6 +396,12 @@ class AppState extends ChangeNotifier {
   /// [totalWords] 当前难度总词数（用于检查全部掌握）
   void checkAndUnlockBadges({int totalWords = 0}) {
     // ── 类别1: 词语 ──
+    // 掌握 10 个词语
+    if (_masteredWordIds.length >= 10) unlockBadge('word10');
+    // 掌握 50 个词语
+    if (_masteredWordIds.length >= 50) unlockBadge('word50');
+    // 掌握 100 个词语
+    if (_masteredWordIds.length >= 100) unlockBadge('word100');
     // 掌握 500 个词语
     if (_masteredWordIds.length >= 500) unlockBadge('word500');
     // 掌握 1000 个词语

@@ -173,6 +173,12 @@ class AppLocalizations {
       'learnerName': 'Learner',
       'myAchievements': 'My Achievements',
       // 徽章 - 类别1: 词语
+      'badgeWord10': 'Word Rookie',
+      'badgeWord10Desc': 'Master 10 words',
+      'badgeWord50': 'Word Starter',
+      'badgeWord50Desc': 'Master 50 words',
+      'badgeWord100': 'Word Learner',
+      'badgeWord100Desc': 'Master 100 words',
       'badgeWord500': 'Word Pro',
       'badgeWord500Desc': 'Master 500 words',
       'badgeWord1000': 'Word Expert',
@@ -439,6 +445,12 @@ class AppLocalizations {
       'learnerName': 'Обучающийся',
       'myAchievements': 'Мои достижения',
       // 徽章 - 类别1: 词语
+      'badgeWord10': 'Новичок слов',
+      'badgeWord10Desc': 'Освойте 10 слов',
+      'badgeWord50': 'Начинающий слов',
+      'badgeWord50Desc': 'Освойте 50 слов',
+      'badgeWord100': 'Ученик слов',
+      'badgeWord100Desc': 'Освойте 100 слов',
       'badgeWord500': 'Словесный профи',
       'badgeWord500Desc': 'Освойте 500 слов',
       'badgeWord1000': 'Эксперт слов',
@@ -704,6 +716,12 @@ class AppLocalizations {
       'learnerName': 'یادگیرنده',
       'myAchievements': 'دستاوردهای من',
       // 徽章 - 类别1: 词语
+      'badgeWord10': 'تازه‌کار کلمات',
+      'badgeWord10Desc': '۱۰ کلمه را بیاموزید',
+      'badgeWord50': 'شروع کلمات',
+      'badgeWord50Desc': '۵۰ کلمه را بیاموزید',
+      'badgeWord100': 'یادگیرنده کلمات',
+      'badgeWord100Desc': '۱۰۰ کلمه را بیاموزید',
       'badgeWord500': 'متخصص کلمات',
       'badgeWord500Desc': '۵۰۰ کلمه را بیاموزید',
       'badgeWord1000': 'کارشناس کلمات',
@@ -972,6 +990,12 @@ class AppLocalizations {
       'learnerName': 'المتعلم',
       'myAchievements': 'إنجازاتي',
       // 徽章 - 类别1: 词语
+      'badgeWord10': 'مبتدئ الكلمات',
+      'badgeWord10Desc': 'أتقن 10 كلمات',
+      'badgeWord50': 'بداية الكلمات',
+      'badgeWord50Desc': 'أتقن 50 كلمة',
+      'badgeWord100': 'متعلم الكلمات',
+      'badgeWord100Desc': 'أتقن 100 كلمة',
       'badgeWord500': 'محترف الكلمات',
       'badgeWord500Desc': 'أتقن 500 كلمة',
       'badgeWord1000': 'خبير الكلمات',
@@ -1241,6 +1265,12 @@ class AppLocalizations {
       'learnerName': 'Öğrenen',
       'myAchievements': 'Başarılarım',
       // 徽章 - 类别1: 词语
+      'badgeWord10': 'Kelime Çaylağı',
+      'badgeWord10Desc': '10 kelime öğrenin',
+      'badgeWord50': 'Kelime Başlangıcı',
+      'badgeWord50Desc': '50 kelime öğrenin',
+      'badgeWord100': 'Kelime Öğrencisi',
+      'badgeWord100Desc': '100 kelime öğrenin',
       'badgeWord500': 'Kelime Uzmanı',
       'badgeWord500Desc': '500 kelime öğrenin',
       'badgeWord1000': 'Kelime Bilgini',
@@ -1508,6 +1538,12 @@ class AppLocalizations {
   String get learnerName => _localizedValues[locale.languageCode]?['learnerName'] ?? 'Learner';
   String get myAchievements => _localizedValues[locale.languageCode]?['myAchievements'] ?? 'My Achievements';
   // 徽章 - 类别1: 词语
+  String get badgeWord10 => _localizedValues[locale.languageCode]?['badgeWord10'] ?? 'Word Rookie';
+  String get badgeWord10Desc => _localizedValues[locale.languageCode]?['badgeWord10Desc'] ?? 'Master 10 words';
+  String get badgeWord50 => _localizedValues[locale.languageCode]?['badgeWord50'] ?? 'Word Starter';
+  String get badgeWord50Desc => _localizedValues[locale.languageCode]?['badgeWord50Desc'] ?? 'Master 50 words';
+  String get badgeWord100 => _localizedValues[locale.languageCode]?['badgeWord100'] ?? 'Word Learner';
+  String get badgeWord100Desc => _localizedValues[locale.languageCode]?['badgeWord100Desc'] ?? 'Master 100 words';
   String get badgeWord500 => _localizedValues[locale.languageCode]?['badgeWord500'] ?? 'Word Pro';
   String get badgeWord500Desc => _localizedValues[locale.languageCode]?['badgeWord500Desc'] ?? 'Master 500 words';
   String get badgeWord1000 => _localizedValues[locale.languageCode]?['badgeWord1000'] ?? 'Word Expert';

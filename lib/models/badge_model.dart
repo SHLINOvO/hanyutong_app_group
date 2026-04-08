@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 /// 徽章 ID 枚举（按类别分组，类别内相邻）
 enum BadgeId {
   // ── 类别1: 词语 ──
+  word10,   // 掌握10词
+  word50,   // 掌握50词
+  word100,  // 掌握100词
   word500,   // 掌握500词
   word1000,  // 掌握1000词
   word3000,  // 掌握3000词
@@ -67,6 +70,27 @@ class BadgeDef {
   /// 全部徽章定义（顺序即为展示顺序）
   static const List<BadgeDef> all = [
     // ── 类别1: 词语 ──
+    BadgeDef(
+      id: BadgeId.word10,
+      titleKey: 'badgeWord10',
+      descKey: 'badgeWord10Desc',
+      icon: Icons.looks_one_rounded,
+      color: Color(0xFF81D4FA),
+    ),
+    BadgeDef(
+      id: BadgeId.word50,
+      titleKey: 'badgeWord50',
+      descKey: 'badgeWord50Desc',
+      icon: Icons.looks_two_rounded,
+      color: Color(0xFF4FC3F7),
+    ),
+    BadgeDef(
+      id: BadgeId.word100,
+      titleKey: 'badgeWord100',
+      descKey: 'badgeWord100Desc',
+      icon: Icons.looks_3_rounded,
+      color: Color(0xFF29B6F6),
+    ),
     BadgeDef(
       id: BadgeId.word500,
       titleKey: 'badgeWord500',

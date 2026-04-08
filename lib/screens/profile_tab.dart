@@ -275,6 +275,9 @@ class _ProfileTabState extends State<ProfileTab> {
   String _getBadgeTitle(String badgeId) {
     final loc = AppLocalizations.of(context)!;
     switch (badgeId) {
+      case 'word10':       return loc.badgeWord10;
+      case 'word50':       return loc.badgeWord50;
+      case 'word100':      return loc.badgeWord100;
       case 'word500':      return loc.badgeWord500;
       case 'word1000':     return loc.badgeWord1000;
       case 'word3000':     return loc.badgeWord3000;
@@ -314,6 +317,9 @@ class _ProfileTabState extends State<ProfileTab> {
   String _getBadgeDesc(String badgeId) {
     final loc = AppLocalizations.of(context)!;
     switch (badgeId) {
+      case 'word10':       return loc.badgeWord10Desc;
+      case 'word50':       return loc.badgeWord50Desc;
+      case 'word100':      return loc.badgeWord100Desc;
       case 'word500':      return loc.badgeWord500Desc;
       case 'word1000':     return loc.badgeWord1000Desc;
       case 'word3000':     return loc.badgeWord3000Desc;
