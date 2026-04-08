@@ -237,7 +237,7 @@ lib/
 │   ├── culture_practice_page.dart   # 文化知识学习（24 节气 + 13 节日）
 │   ├── poetry_detail_page.dart      # 诗词详情页（原文+释义）
 │   ├── favorites_page.dart          # 收藏页（4 个选项卡）
-│   ├── achievements_page.dart       # 成就页面（全屏展示7类20个成就）
+│   ├── achievements_page.dart       # 成就页面（全屏展示7类34个成就）
 │   ├── notifications_page.dart      # 通知页面
 │   ├── settings_page.dart           # 设置页
 │   └── empty_page.dart              # 占位页面
