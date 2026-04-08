@@ -111,113 +111,133 @@ class _GrammarPracticePageState extends State<GrammarPracticePage> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            // 图片卡片
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.08),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
+      body: Column(
+        children: [
+          // 图片区域（可滚动）
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  // 图片卡片
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.08),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        minHeight: 300,
+                      ),
+                      child: Image.asset(
+                        _currentImagePath(),
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) {
+                          debugPrint('[GrammarPractice] image load error: $error');
+                          debugPrint('[GrammarPractice] path: ${_currentImagePath()}');
+                          return Container(
+                            height: 200,
+                            padding: const EdgeInsets.all(40),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.broken_image, color: Color(0xFFCCCCCC), size: 64),
+                                const SizedBox(height: 12),
+                                Text(
+                                  '${_currentIndex + 1}.png',
+                                  style: const TextStyle(color: Color(0xFF999999), fontSize: 14),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  _currentImagePath(),
+                                  style: const TextStyle(color: Color(0xFFBBBBBB), fontSize: 11),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   ),
+                  const SizedBox(height: 24),
                 ],
               ),
-              clipBehavior: Clip.antiAlias,
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  minHeight: 300,
-                ),
-                child: Image.asset(
-                  _currentImagePath(),
-                  fit: BoxFit.contain,
-                  errorBuilder: (context, error, stackTrace) {
-                    debugPrint('[GrammarPractice] image load error: $error');
-                    debugPrint('[GrammarPractice] path: ${_currentImagePath()}');
-                    return Container(
-                      height: 200,
-                      padding: const EdgeInsets.all(40),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.broken_image, color: Color(0xFFCCCCCC), size: 64),
-                          const SizedBox(height: 12),
-                          Text(
-                            '${_currentIndex + 1}.png',
-                            style: const TextStyle(color: Color(0xFF999999), fontSize: 14),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            _currentImagePath(),
-                            style: const TextStyle(color: Color(0xFFBBBBBB), fontSize: 11),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
             ),
-
-            const SizedBox(height: 24),
-
-            // 翻页按钮（上一项 + 下一项）
-            Row(
-              children: [
-                // 上一项
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: _currentIndex > 0
-                        ? () => setState(() => _currentIndex--)
-                        : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE0E0E0),
-                      foregroundColor: const Color(0xFF333333),
-                      disabledBackgroundColor: const Color(0xFFF0F0F0),
-                      disabledForegroundColor: const Color(0xFFCCCCCC),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    ),
-                    child: Text(
-                      loc.prevItem,
-                      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                // 下一项
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_currentIndex < _totalItems - 1) {
-                        setState(() => _currentIndex++);
-                      } else {
-                        context.pop();
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4285F4),
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    ),
-                    child: Text(
-                      _currentIndex < _totalItems - 1 ? loc.nextItem : loc.close,
-                      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-                    ),
-                  ),
+          ),
+          // 底部固定按钮
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 8,
+                  offset: const Offset(0, -2),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
-          ],
-        ),
+            child: SafeArea(
+              top: false,
+              child: Row(
+                children: [
+                  // 上一项
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: _currentIndex > 0
+                          ? () => setState(() => _currentIndex--)
+                          : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFE0E0E0),
+                        foregroundColor: const Color(0xFF333333),
+                        disabledBackgroundColor: const Color(0xFFF0F0F0),
+                        disabledForegroundColor: const Color(0xFFCCCCCC),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      child: Text(
+                        loc.prevItem,
+                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  // 下一项
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_currentIndex < _totalItems - 1) {
+                          setState(() => _currentIndex++);
+                        } else {
+                          context.pop();
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4285F4),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      child: Text(
+                        _currentIndex < _totalItems - 1 ? loc.nextItem : loc.close,
+                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
