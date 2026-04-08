@@ -265,6 +265,7 @@ class _TopButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        height: 44,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -276,7 +277,7 @@ class _TopButton extends StatelessWidget {
                 offset: Offset(0, 2))
           ],
         ),
-        child: child,
+        child: Center(child: child),
       ),
     );
   }
