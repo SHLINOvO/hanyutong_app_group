@@ -72,7 +72,7 @@ class _LevelTestState extends State<LevelTest> {
                       AppLocalizations.of(context)!.whatsYourLevel,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        fontSize: 28,
+                        fontSize: 26,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF333333),
                       ),

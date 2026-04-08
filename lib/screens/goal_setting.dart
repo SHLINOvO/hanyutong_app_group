@@ -51,7 +51,7 @@ class _GoalSettingState extends State<GoalSetting> {
                       AppLocalizations.of(context)!.setLearningGoal,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        fontSize: 28,
+                        fontSize: 26,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF333333),
                       ),
