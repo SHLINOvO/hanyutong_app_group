@@ -32,8 +32,15 @@ class _ProfileTabState extends State<ProfileTab> {
 
   Future<void> _loadTotals() async {
     final state = context.read<AppState>();
-    // 根据用户当前难度加载对应的词语总数
-    final words = await WordRepository.loadWords(state.level);
+    // 加载所有难度的词语总数
+    final wordsBeginner = await WordRepository.loadWords('beginner');
+    final wordsElementary = await WordRepository.loadWords('elementary');
+    final wordsIntermediate = await WordRepository.loadWords('intermediate');
+    final wordsAdvanced = await WordRepository.loadWords('advanced');
+    final totalWordsCount = wordsBeginner.length +
+        wordsElementary.length +
+        wordsIntermediate.length +
+        wordsAdvanced.length;
     // 成语、谚语、诗词加载全部
     final idioms = await IdiomRepository.loadIdioms();
     final proverbs = await ProverbRepository.loadProverbs();
@@ -41,14 +48,14 @@ class _ProfileTabState extends State<ProfileTab> {
 
     if (mounted) {
       setState(() {
-        _totalWords = words.length;
+        _totalWords = totalWordsCount;
         _totalIdioms = idioms.length;
         _totalProverbs = proverbs.length;
         _totalPoems = poems.length;
         _isLoading = false;
       });
       // 检查并解锁徽章
-      state.checkAndUnlockBadges(totalWords: words.length);
+      state.checkAndUnlockBadges(totalWords: totalWordsCount);
     }
   }
 
