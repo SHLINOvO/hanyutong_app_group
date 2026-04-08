@@ -222,13 +222,16 @@ class _PracticeCard extends StatelessWidget {
               child: Icon(icon, color: iconColor, size: 22),
             ),
             const SizedBox(height: 12),
-            Text(
-              label,
-              maxLines: 2,
-              softWrap: true,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold, color: Color(0xFF333333)),
+            SizedBox(
+              height: 40,
+              child: Text(
+                label,
+                maxLines: 2,
+                softWrap: true,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, color: Color(0xFF333333)),
+              ),
             ),
           ],
         ),
