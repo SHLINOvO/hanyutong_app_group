@@ -142,7 +142,8 @@ provider: ^6.1.2              # 状态管理
 go_router: ^14.3.0            # 路由
 shared_preferences: ^2.3.2    # 本地存储
 window_manager: ^0.3.9        # Windows 窗口控制（手机比例 390×844）
-flutter_localizations          # 国际化支持
+flutter_localizations:        # 国际化支持
+  sdk: flutter
 intl: ^0.20.2                 # 国际化工具
 record: ^5.2.1                # 录音（Android + Windows + iOS）
 permission_handler: ^11.3.1   # 权限申请（麦克风等）
