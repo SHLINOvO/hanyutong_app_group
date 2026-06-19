@@ -165,7 +165,7 @@ class AiService {
   /// [correctChinese] 正确的中文词语/成语
   /// [pinyin] 拼音
   /// 返回 0-100 的分数
-  Future<int> evaluatePronunciation({
+  Future<int?> evaluatePronunciation({
     required String audioPath,
     required String correctChinese,
     required String pinyin,
@@ -213,8 +213,8 @@ class AiService {
       if (e is _SilentAudioException) return 0;
       // 文件不存在 → 0 分
       if (e.toString().contains('音频文件不存在')) return 0;
-      // 其他网络/API 异常 → 随机分（避免误伤正常用户）
-      return Random().nextInt(25) + 70; // 70-94
+      // 其他网络/API 异常 → 返回 null，由上层 UI 提示用户
+      return null;
     }
   }
 
@@ -230,8 +230,8 @@ class AiService {
   /// [correctTranslation] 标准翻译（用户的母语）
   /// [languageCode] 用户的母语代码（en/ru/tr/ar/fa）
   /// [chineseWord] 中文词语（提供上下文）
-  /// 返回 0-100 的分数
-  Future<int> evaluateMeaning({
+  /// 返回 0-100 的分数，API 异常时返回 null
+  Future<int?> evaluateMeaning({
     required String audioPath,
     required String correctTranslation,
     required String languageCode,
@@ -249,7 +249,7 @@ class AiService {
       // 2. 预检测语言：如果识别结果包含中文字符，说明用户读了中文原文而非用母语解释
       if (_containsChinese(transcript)) {
         debugPrint('⚠️ 语义评分：检测到中文，用户未用母语解释（识别结果: $transcript），直接给低分');
-        return Random().nextInt(11); // 0-10 分
+        return null; // API 异常，返回 null 由上层提示用户
       }
 
       // 3. 用通义千问对比用户解释和标准翻译
@@ -286,8 +286,8 @@ class AiService {
       if (e is _SilentAudioException) return 0;
       // 文件不存在 → 0 分
       if (e.toString().contains('音频文件不存在')) return 0;
-      // 其他网络/API 异常 → 随机分
-      return Random().nextInt(20) + 60; // 60-79
+      // 其他网络/API 异常 → 返回 null，由上层 UI 提示用户
+      return null;
     }
   }
 

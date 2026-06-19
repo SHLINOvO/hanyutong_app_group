@@ -475,19 +475,11 @@ class _AdvancedPracticeState extends State<AdvancedPractice> {
         }
       }
     } catch (_) {
-      // API 异常时使用模拟分数兜底
       if (mounted) {
-        final rnd = Random();
-        setState(() {
-          if (_step == 'pronunciation') {
-            _pronScore = rnd.nextInt(30) + 70;
-            _showPronScore = true;
-          } else {
-            _meaningScore = rnd.nextInt(30) + 70;
-            _showMeaningScore = true;
-          }
-          _isEvaluating = false;
-        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('评分服务不可用，请稍后重试')),
+        );
+        setState(() => _isEvaluating = false);
       }
     }
   }

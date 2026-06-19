@@ -192,6 +192,15 @@ class _PracticePageState extends State<PracticePage> {
           correctChinese: word.word,
           pinyin: word.pinyin,
         );
+        if (score == null) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('评分服务不可用，请稍后重试')),
+            );
+            setState(() => _isEvaluating = false);
+          }
+          return;
+        }
         if (mounted) {
           setState(() {
             _pronScore = score;
@@ -207,6 +216,15 @@ class _PracticePageState extends State<PracticePage> {
           languageCode: state.language,
           chineseWord: word.word,
         );
+        if (score == null) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('评分服务不可用，请稍后重试')),
+            );
+            setState(() => _isEvaluating = false);
+          }
+          return;
+        }
         if (mounted) {
           setState(() {
             _meaningScore = score;
@@ -216,19 +234,11 @@ class _PracticePageState extends State<PracticePage> {
         }
       }
     } catch (_) {
-      // API 异常时使用模拟分数兜底
       if (mounted) {
-        final rnd = Random();
-        setState(() {
-          if (_step == 'pronunciation') {
-            _pronScore = rnd.nextInt(30) + 70;
-            _showPronunciationScore = true;
-          } else {
-            _meaningScore = rnd.nextInt(30) + 70;
-            _showMeaningScore = true;
-          }
-          _isEvaluating = false;
-        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('评分服务不可用，请稍后重试')),
+        );
+        setState(() => _isEvaluating = false);
       }
     }
   }
