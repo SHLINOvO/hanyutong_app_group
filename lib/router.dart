@@ -294,7 +294,35 @@ GoRouter buildRouter(BuildContext context) {
       GoRoute(
         path: '/poetry-detail',
         pageBuilder: (context, state) {
-          final poem = state.extra as PoetryModel;
+          final poem = state.extra is PoetryModel ? state.extra as PoetryModel : null;
+          if (poem == null) {
+            return CustomTransitionPage<void>(
+              key: state.pageKey,
+              child: Scaffold(
+                appBar: AppBar(
+                  title: const Text('诗词详情'),
+                  backgroundColor: Colors.white,
+                  foregroundColor: const Color(0xFF333333),
+                  elevation: 0,
+                ),
+                body: const Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.error_outline, size: 48, color: Color(0xFF999999)),
+                      SizedBox(height: 12),
+                      Text('诗词数据丢失，请返回重试',
+                          style: TextStyle(fontSize: 14, color: Color(0xFF999999))),
+                    ],
+                  ),
+                ),
+              ),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+              transitionDuration: const Duration(milliseconds: 200),
+            );
+          }
           return CustomTransitionPage<void>(
             key: state.pageKey,
             child: PoetryDetailPage(poem: poem),
