@@ -32,10 +32,10 @@
 
 | | |
 |---|---|
-| ![](_figure/1.png)  | ![](_figure/2.png)  |
-| ![](_figure/3.png)  | ![](_figure/4.png)  |
-| ![](_figure/5.png)  | ![](_figure/6.png)  |
-| ![](_figure/7.png)  | ![](_figure/8.png)  |
+| ![](_figure/1.jpg)  | ![](_figure/2.jpg)  |
+| ![](_figure/3.jpg)  | ![](_figure/4.jpg)  |
+| ![](_figure/5.jpg)  | ![](_figure/6.jpg)  |
+| ![](_figure/7.jpg)  | ![](_figure/8.jpg)  |
 
 ---
 
