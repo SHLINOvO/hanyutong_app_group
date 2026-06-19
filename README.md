@@ -1,6 +1,6 @@
 # HanYu Tong — 汉语通
 
-> 面向外国人的中文学习 App，支持 5 种母语界面，覆盖词汇、成语、谚语、诗词、语法、文化六大学习模块，接入 AI 语音识别与智能评分，帮助学习者从零基础到高阶全面提升中文水平。
+> 一款中文学习 App，支持 5 种母语界面，覆盖词汇、成语、谚语、诗词、语法、文化六大学习模块，接入 AI 语音识别与智能评分，帮助学习者从零基础到高阶全面提升中文水平。
 
 ---
 
@@ -28,27 +28,14 @@
 
 ## 界面展示
 
-### LTR 语言界面（Windows 桌面）
+### 📱 App 截图
 
-| |                     | |
-|---|---------------------|---|
-| ![](_figure/1.png) | ![](_figure/2.png)  | ![](_figure/3.png) |
-| ![](_figure/4.png) | ![](_figure/5.png)  | ![](_figure/6.png) |
-| ![](_figure/7.png) | ![](_figure/8.png)  | ![](_figure/9.png) |
-| ![](_figure/10.png) | ![](_figure/11.png) | ![](_figure/12.png) |
-| ![](_figure/13.png) | ![](_figure/14.png) | | |
-
-### RTL 语言界面（Windows 桌面）
-
-|                     |                     |                     |
-|---------------------|---------------------|---------------------|
-| ![](_figure/15.png) | ![](_figure/16.png) | ![](_figure/17.png) |
-
-### Android 真机界面
-
-|                     |                     |                     |
-|---------------------|---------------------|---------------------|
-| ![](_figure/18.png) | ![](_figure/19.png) | ![](_figure/20.png) |
+| | |
+|---|---|
+| ![](_figure/1.png)  | ![](_figure/2.png)  |
+| ![](_figure/3.png)  | ![](_figure/4.png)  |
+| ![](_figure/5.png)  | ![](_figure/6.png)  |
+| ![](_figure/7.png)  | ![](_figure/8.png)  |
 
 ---
 
@@ -240,7 +227,8 @@ lib/
 │
 └── widgets/
     ├── sound_wave_button.dart       # 声波喇叭按钮组件（录音+TTS 播放）
-    └── step_indicator.dart          # 步骤指示器组件
+    ├── step_indicator.dart          # 步骤指示器组件
+    └── tutor_chat_panel.dart        # AI 导师对话面板
 ```
 
 ---
@@ -303,8 +291,8 @@ word → pinyin → english → russian → turkish → arabic → persian
 
 ```bash
 # 1. 克隆项目
-git clone https://gitee.com/linlinsh/han-yu_-tong_-app_basic.git
-cd han-yu_-tong_-app_basic
+git clone https://github.com/SHLINOvO/hanyutong_app_group.git
+cd hanyutong_app_group
 
 # 2. 安装依赖
 flutter pub get
@@ -338,12 +326,7 @@ flutter build apk --release
 ```
 
 > **debug APK 输出路径**：`build/app/outputs/flutter-apk/app-debug.apk`
-> **debug APK 大小**：约 91.7MB（arm64 单架构）
-> **debug APK 特性**：自带签名，可直接安装，无需配置签名文件
-
 > **release APK 输出路径**：`build/app/outputs/flutter-apk/app-release.apk`
-> **release APK 大小**：约 32.4MB（arm64 单架构）
-> **release APK 特性**：代码混淆压缩，体积小，需配置签名文件（`android/key.properties` + `android/hanyu_tong.keystore`），推荐正式发布
 
 ### Android 权限说明
 
@@ -381,7 +364,7 @@ SplashScreen → 语言选择 → 水平测试 → 学习目标设置 → 主界
 ├── 成语学习 → 卡片式学习（AI 评分 + 标记掌握 + 序号跳转）
 ├── 谚语学习 → 卡片式学习（AI 评分 + 标记掌握 + 序号跳转）
 ├── 诗词学习 → 翻页浏览（中文释义+母语释义，可收藏，纯浏览无评分）
-├── 文化知识 → 24 节气 + 13 节日翻页浏览
+└── 文化知识 → 24 节气 + 13 节日翻页浏览
 ```
 
 ### 复习系统
@@ -431,7 +414,6 @@ SplashScreen → 语言选择 → 水平测试 → 学习目标设置 → 主界
 - [x] 项目重命名为 HanYu_Tong
 - [x] Android 真机部署支持
 - [x] iOS 代码准备（Info.plist 麦克风权限、Podfile）
-- [x] flutter analyze 零错误零警告
 - [x] Git 配置（.gitattributes，LF 行尾符）
 - [x] 录音功能接入（record + permission_handler，支持 Windows + Android + iOS）
 - [x] TTS 语音合成接入（Edge TTS + audioplayers，中文标准发音）
@@ -443,7 +425,7 @@ SplashScreen → 语言选择 → 水平测试 → 学习目标设置 → 主界
 - [x] 语义评分安全加固（防止读中文原文得高分）
 - [x] Android APK 网络权限修复（INTERNET 权限）
 - [x] TTS 调试日志功能
-- [x] Android APK 打包（debug 约 91.7MB，release 约 32.4MB，arm64 单架构）
+- [x] Android APK 打包（debug 约 93MB，release 约 32MB，arm64 单架构）
 - [x] AI 评分空音频修复（用户不说话时返回 0 分，而非随机高分）
 - [x] **成就系统**（7 类 34 个徽章：词汇/成语/谚语/诗词/收藏/连续学习/累计天数）
 - [x] 通知页面（暂无通知占位界面）
@@ -458,5 +440,5 @@ SplashScreen → 语言选择 → 水平测试 → 学习目标设置 → 主界
 
 ## 仓库信息
 
-- **Gitee**：https://gitee.com/linlinsh/han-yu_-tong_-app_basic
+- **GitHub**：https://github.com/SHLINOvO/hanyutong_app_group
 - **分支**：master

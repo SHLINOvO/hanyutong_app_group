@@ -17,6 +17,7 @@ android {
     namespace = "com.example.chinese_go_app"
     compileSdk = flutter.compileSdkVersion
     buildToolsVersion = "36.1.0"
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

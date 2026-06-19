@@ -453,7 +453,7 @@ class _AdvancedPracticeState extends State<AdvancedPractice> {
         );
         if (mounted) {
           setState(() {
-            _pronScore = score;
+            _pronScore = score ?? _pronScore;
             _showPronScore = true;
             _isEvaluating = false;
           });
@@ -468,7 +468,7 @@ class _AdvancedPracticeState extends State<AdvancedPractice> {
         );
         if (mounted) {
           setState(() {
-            _meaningScore = score;
+            _meaningScore = score ?? _meaningScore;
             _showMeaningScore = true;
             _isEvaluating = false;
           });
